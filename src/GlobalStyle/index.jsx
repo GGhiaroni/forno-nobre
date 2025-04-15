@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 :root {
-  font-family: "Work Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
 
   --tamanho-fonte-nome-pizza: 1.25rem;
@@ -11,8 +11,11 @@ const GlobalStyle = createGlobalStyle`
   --peso-fonte-nome-pizza: 600;
   --peso-fonte-descricao-pizza: 400;
   --peso-fonte-preco-pizza: 700;
-  --tamanho-fonte-l: 2.5rem;
-  --tamanho-fonte-m: 1.125rem;
+  --tamanho-fonte-xxxl: 2.5rem;
+  --tamanho-fonte-xl: 1.5rem;
+  --tamanho-fonte-l: 1.125rem;
+  --tamanho-fonte-md: 1rem;
+  --tamanho-fonte-s: .875rem;
   
 
   --cor-branca: #FFFFFF;
