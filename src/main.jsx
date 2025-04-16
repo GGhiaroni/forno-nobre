@@ -1,11 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
 import GlobalStyle from "./GlobalStyle/index.jsx";
+import AppRoutes from "./routes.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <GlobalStyle />
-    <App />
+    <AppRoutes />
   </StrictMode>
 );
