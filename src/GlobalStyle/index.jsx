@@ -12,13 +12,13 @@ const GlobalStyle = createGlobalStyle`
   --tamanho-fonte-xl: 1.5rem;
   --tamanho-fonte-l: 1.125rem;
   --tamanho-fonte-md: 1rem;
-  --tamanho-fonte-s: .875rem;
+  --tamanho-fonte-s: .9rem;
   
 
   --cor-branca: #FFFFFF;
   --cor-primaria: #D22418;
-  --cor-cinza-claro: #64748B;
-  --cor-cinza-medio: #94A3B8;
+  --cor-cinza-medio: #64748B;
+  --cor-cinza-claro: #94A3B8;
   --cor-cinza-escuro: #1E293B;
   --cor-laranja: #F87415;
   --cor-amarelo: #FAE08D;
