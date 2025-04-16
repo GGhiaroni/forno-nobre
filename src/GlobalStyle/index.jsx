@@ -8,9 +8,6 @@ const GlobalStyle = createGlobalStyle`
   --tamanho-fonte-nome-pizza: 1.25rem;
   --tamanho-fonte-categoria-pizza: .75rem;
   --tamanho-fonte-descricao-pizza: .875rem;
-  --peso-fonte-nome-pizza: 600;
-  --peso-fonte-descricao-pizza: 400;
-  --peso-fonte-preco-pizza: 700;
   --tamanho-fonte-xxxl: 2.5rem;
   --tamanho-fonte-xl: 1.5rem;
   --tamanho-fonte-l: 1.125rem;
