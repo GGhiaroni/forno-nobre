@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 
 const UlEstilizado = styled.ul`
@@ -8,14 +9,28 @@ const UlEstilizado = styled.ul`
 `;
 
 const LiEstilizado = styled.li`
-  border: 1px solid var(--cor-cinza-claro);
+  border: ${(props) =>
+    props.$ativo
+      ? "1px solid var(--cor-primaria)"
+      : "1px solid var(--cor-cinza-escuro)"};
   font-size: var(--tamanho-fonte-s);
-  color: var(--cor-cinza-escuro);
-  font-weight: 500;
+  color: ${(props) =>
+    props.$ativo ? "var(--cor-branca)" : "var(--cor-cinza-escuro)"};
+  background-color: ${(props) =>
+    props.$ativo ? "var(--cor-primaria)" : "transparent"};
+  font-weight: 600;
   padding: 1rem 1.2rem;
   border-radius: 1.8rem;
   min-width: 50px;
   text-align: center;
+  transition: 0.3s ease;
+`;
+
+const BtnEstilizado = styled.button`
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  font-family: "Poppins", sans-serif;
 `;
 
 const Categorias = () => {
@@ -27,10 +42,16 @@ const Categorias = () => {
     "Mais pedidas",
   ];
 
+  const [categoriaAtiva, setCategoriaAtiva] = useState(categorias[0]);
+
   return (
     <UlEstilizado>
       {categorias.map((categoria, index) => (
-        <LiEstilizado key={index}>{categoria}</LiEstilizado>
+        <BtnEstilizado key={index} onClick={() => setCategoriaAtiva(categoria)}>
+          <LiEstilizado $ativo={categoria === categoriaAtiva}>
+            {categoria}
+          </LiEstilizado>
+        </BtnEstilizado>
       ))}
     </UlEstilizado>
   );
