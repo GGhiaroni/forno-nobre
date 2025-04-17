@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import CardsPizza from "../Componentes/CardsPizza";
 import Categorias from "../Componentes/Categorias";
 import HeroSection from "../Componentes/HeroSection";
 
@@ -14,6 +15,7 @@ const Home = () => {
       <HeroSection />
       <ContainerHome>
         <Categorias />
+        <CardsPizza />
       </ContainerHome>
     </>
   );
