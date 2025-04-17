@@ -11,6 +11,14 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  cursor: pointer;
+
+  &:hover {
+    img {
+      transition: ease 0.3s;
+      transform: scale(1.1);
+    }
+  }
 `;
 
 const ImagemPizza = styled.img`
@@ -64,6 +72,11 @@ const BotaoAdicionar = styled.button`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+
+  &:hover {
+    transition: ease 0.3s;
+    transform: scale(1.1);
+  }
 `;
 
 const CardsPizza = () => {
