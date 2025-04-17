@@ -6,6 +6,7 @@ const UlEstilizado = styled.ul`
   display: flex;
   gap: 20px;
   list-style: none;
+  margin-bottom: 2rem;
 `;
 
 const LiEstilizado = styled.li`
@@ -24,6 +25,15 @@ const LiEstilizado = styled.li`
   min-width: 50px;
   text-align: center;
   transition: 0.3s ease;
+
+  &:hover {
+    ${(props) =>
+      !props.$ativo &&
+      `
+      border-color: #f14236;
+      background-color: var(--cor-background-input);
+    `}
+  }
 `;
 
 const BtnEstilizado = styled.button`

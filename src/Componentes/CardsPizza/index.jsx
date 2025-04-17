@@ -2,8 +2,14 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import styled from "styled-components";
 
+const ContainerCards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 2.5rem;
+  align-items: stretch;
+`;
+
 const Card = styled.div`
-  width: 300px;
   background-color: var(--cor-branca);
   border-radius: 20px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
@@ -12,6 +18,8 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: space-between;
   cursor: pointer;
+  height: 100%;
+  width: 100%;
 
   &:hover {
     img {
@@ -29,6 +37,8 @@ const ImagemPizza = styled.img`
 
 const Content = styled.div`
   padding: 16px;
+  min-height: 120px;
+  flex-grow: 1;
 `;
 
 const Categoria = styled.p`
@@ -49,10 +59,11 @@ const Descricao = styled.p`
 `;
 
 const Footer = styled.div`
-  padding: 0 16px 16px;
+  padding: 0 16px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: auto;
 `;
 
 const Preco = styled.span`
@@ -104,8 +115,7 @@ const CardsPizza = () => {
   if (loading) return <p>Carregando pizzas...</p>;
 
   return (
-    <div>
-      <h2>Pizzas disponíveis:</h2>
+    <ContainerCards>
       {pizzas.map((pizza, index) => (
         <Card key={index}>
           <ImagemPizza src={pizza.fotoUm} />
@@ -122,7 +132,7 @@ const CardsPizza = () => {
           </Footer>
         </Card>
       ))}
-    </div>
+    </ContainerCards>
   );
 };
 
