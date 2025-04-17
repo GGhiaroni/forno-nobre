@@ -1,4 +1,70 @@
 import { useEffect, useState } from "react";
+import { FaPlus } from "react-icons/fa";
+import styled from "styled-components";
+
+const Card = styled.div`
+  width: 300px;
+  background-color: var(--cor-branca);
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const ImagemPizza = styled.img`
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+`;
+
+const Content = styled.div`
+  padding: 16px;
+`;
+
+const Categoria = styled.p`
+  color: var(--cor-laranja);
+  font-weight: 600;
+  margin: 0;
+`;
+
+const Sabor = styled.h3`
+  margin: 8px 0 4px;
+  font-size: 20px;
+  color: var(--cor-cinza-escuro);
+`;
+
+const Descricao = styled.p`
+  font-size: 14px;
+  color: var(--cor-cinza-claro);
+`;
+
+const Footer = styled.div`
+  padding: 0 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const Preco = styled.span`
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cor-cinza-escuro);
+`;
+
+const BotaoAdicionar = styled.button`
+  background-color: var(--cor-primaria);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+`;
 
 const CardsPizza = () => {
   const [pizzas, setPizzas] = useState([]);
@@ -27,12 +93,21 @@ const CardsPizza = () => {
   return (
     <div>
       <h2>Pizzas disponíveis:</h2>
-      {pizzas.map((pizza) => (
-        <div key={pizza.id}>
-          <h3>{pizza.sabor}</h3>
-          <p>{pizza.descricao}</p>
-          <img src={pizza.fotoUm} alt={pizza.sabor} width={200} />
-        </div>
+      {pizzas.map((pizza, index) => (
+        <Card key={index}>
+          <ImagemPizza src={pizza.fotoUm} />
+          <Content>
+            <Categoria>{pizza.categoria}</Categoria>
+            <Sabor>{pizza.sabor}</Sabor>
+            <Descricao>{pizza.descricao}</Descricao>
+          </Content>
+          <Footer>
+            <Preco>R$ {Number(pizza.preco).toFixed(2).replace(".", ",")}</Preco>
+            <BotaoAdicionar>
+              <FaPlus size={20} />
+            </BotaoAdicionar>
+          </Footer>
+        </Card>
       ))}
     </div>
   );
