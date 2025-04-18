@@ -5,14 +5,14 @@ const GlobalStyle = createGlobalStyle`
   font-family: "Poppins", sans-serif;
   font-optical-sizing: auto;
 
-  --tamanho-fonte-nome-pizza: 1.25rem;
-  --tamanho-fonte-categoria-pizza: .75rem;
-  --tamanho-fonte-descricao-pizza: .875rem;
-  --tamanho-fonte-xxxl: 2.5rem;
-  --tamanho-fonte-xl: 1.5rem;
-  --tamanho-fonte-l: 1.125rem;
-  --tamanho-fonte-md: 1rem;
-  --tamanho-fonte-s: .9rem;
+  --tamanho-fonte-nome-pizza: 1.25rem; //20px
+  --tamanho-fonte-categoria-pizza: .75rem; //12px
+  --tamanho-fonte-descricao-pizza: .875rem; //14px
+  --tamanho-fonte-xxxl: 2.5rem; //40px
+  --tamanho-fonte-xl: 1.5rem; //24px
+  --tamanho-fonte-l: 1.125rem; //18px
+  --tamanho-fonte-md: 1rem; //16px
+  --tamanho-fonte-s: .9rem; //14.5px
   
 
   --cor-branca: #FFFFFF;

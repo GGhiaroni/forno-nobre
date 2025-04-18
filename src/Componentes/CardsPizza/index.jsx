@@ -36,7 +36,7 @@ const ImagemPizza = styled.img`
 `;
 
 const Content = styled.div`
-  padding: 16px;
+  padding: 30px 16px 0px;
   min-height: 120px;
   flex-grow: 1;
 `;
@@ -45,17 +45,21 @@ const Categoria = styled.p`
   color: var(--cor-laranja);
   font-weight: 600;
   margin: 0;
+  font-size: var(--tamanho-fonte-categoria-pizza);
 `;
 
 const Sabor = styled.h3`
   margin: 8px 0 4px;
-  font-size: 20px;
+  font-size: var(--tamanho-fonte-nome-pizza);
   color: var(--cor-cinza-escuro);
+  line-height: 30px;
+  font-weight: 600;
 `;
 
 const Descricao = styled.p`
-  font-size: 14px;
+  font-size: var(--tamanho-fonte-descricao-pizza);
   color: var(--cor-cinza-claro);
+  line-height: 20px;
 `;
 
 const Footer = styled.div`
@@ -67,8 +71,9 @@ const Footer = styled.div`
 `;
 
 const Preco = styled.span`
-  font-size: 18px;
+  font-size: var(--tamanho-fonte-nome-pizza);
   font-weight: 700;
+  line-height: 30px;
   color: var(--cor-cinza-escuro);
 `;
 
