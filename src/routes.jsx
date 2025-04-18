@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Home from "./Pages/Home";
+import Pizza from "./Pages/Pizza";
 
 function AppRoutes() {
   return (
@@ -9,6 +10,7 @@ function AppRoutes() {
       <Header />
       <Routes>
         <Route index element={<Home />} />
+        <Route path="/pizza/:nome" element={<Pizza />} />
       </Routes>
       <Footer />
     </BrowserRouter>

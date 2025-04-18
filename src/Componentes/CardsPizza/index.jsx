@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ContainerCards = styled.div`
@@ -121,6 +122,10 @@ const IconeEstrela = styled(IoIosStar)`
   align-items: center;
 `;
 
+const LinkEstilizado = styled(Link)`
+  text-decoration: none;
+`;
+
 const CardsPizza = () => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -148,26 +153,34 @@ const CardsPizza = () => {
   return (
     <ContainerCards>
       {pizzas.map((pizza, index) => (
-        <Card key={index}>
-          <ImagemPizza src={pizza.fotoUm} />
-          <Content>
-            <Categoria>{pizza.categoria}</Categoria>
-            <ContainerSaborAvaliacao>
-              <Sabor>{pizza.sabor}</Sabor>
-              <ContainerAvaliacao>
-                <IconeEstrela />
-                <Avaliacao>{pizza.avaliacao}</Avaliacao>
-              </ContainerAvaliacao>
-            </ContainerSaborAvaliacao>
-            <Descricao>{pizza.descricao}</Descricao>
-          </Content>
-          <Footer>
-            <Preco>R$ {Number(pizza.preco).toFixed(2).replace(".", ",")}</Preco>
-            <BotaoAdicionar>
-              <FaPlus size={20} />
-            </BotaoAdicionar>
-          </Footer>
-        </Card>
+        <LinkEstilizado
+          to={`/pizza/${pizza.id}/${pizza.sabor
+            .toLowerCase()
+            .replace(/\s+/g, "-")}`}
+        >
+          <Card key={index}>
+            <ImagemPizza src={pizza.fotoUm} />
+            <Content>
+              <Categoria>{pizza.categoria}</Categoria>
+              <ContainerSaborAvaliacao>
+                <Sabor>{pizza.sabor}</Sabor>
+                <ContainerAvaliacao>
+                  <IconeEstrela />
+                  <Avaliacao>{pizza.avaliacao}</Avaliacao>
+                </ContainerAvaliacao>
+              </ContainerSaborAvaliacao>
+              <Descricao>{pizza.descricao}</Descricao>
+            </Content>
+            <Footer>
+              <Preco>
+                R$ {Number(pizza.preco).toFixed(2).replace(".", ",")}
+              </Preco>
+              <BotaoAdicionar>
+                <FaPlus size={20} />
+              </BotaoAdicionar>
+            </Footer>
+          </Card>
+        </LinkEstilizado>
       ))}
     </ContainerCards>
   );
