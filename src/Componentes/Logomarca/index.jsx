@@ -1,11 +1,14 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logoBranca from "/public/logo-forno-nobre-branco.png";
 import logoVermelha from "/public/logo-forno-nobre.png";
 
-const ContainerLogomarca = styled.div`
+const ContainerLogomarca = styled(Link)`
   display: flex;
   align-items: center;
   gap: 10px;
+  text-decoration: none;
+  cursor: pointer;
 `;
 
 const H1Estilizado = styled.h1`
@@ -24,7 +27,7 @@ const ImgEstilizada = styled.img`
 
 const Logomarca = ({ modo = "header" }) => {
   return (
-    <ContainerLogomarca>
+    <ContainerLogomarca to="/">
       <ImgEstilizada src={modo === "header" ? logoVermelha : logoBranca} />
       <H1Estilizado $modo={modo}>Forno Nobre</H1Estilizado>
     </ContainerLogomarca>
