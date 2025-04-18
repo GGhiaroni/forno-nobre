@@ -19,7 +19,7 @@ const InputWrapper = styled.div`
 const Header = () => {
   return (
     <HeaderEstilizado>
-      <Logomarca />
+      <Logomarca modo="header" />
       <InputWrapper>
         <Input />
       </InputWrapper>

@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import logo from "/public/logo-forno-nobre.png";
+import logoBranca from "/public/logo-forno-nobre-branco.png";
+import logoVermelha from "/public/logo-forno-nobre.png";
 
 const ContainerLogomarca = styled.div`
   display: flex;
@@ -9,7 +10,8 @@ const ContainerLogomarca = styled.div`
 
 const H1Estilizado = styled.h1`
   font-size: var(--tamanho-fonte-xl);
-  color: var(--cor-primaria);
+  color: ${(props) =>
+    props.$modo === "header" ? "var(--cor-primaria)" : "var(--cor-branca)"};
 `;
 
 const ImgEstilizada = styled.img`
@@ -17,11 +19,11 @@ const ImgEstilizada = styled.img`
   width: 50px;
 `;
 
-const Logomarca = () => {
+const Logomarca = ({ modo = "header" }) => {
   return (
     <ContainerLogomarca>
-      <ImgEstilizada src={logo} />
-      <H1Estilizado>Forno Nobre</H1Estilizado>
+      <ImgEstilizada src={modo === "header" ? logoVermelha : logoBranca} />
+      <H1Estilizado $modo={modo}>Forno Nobre</H1Estilizado>
     </ContainerLogomarca>
   );
 };
