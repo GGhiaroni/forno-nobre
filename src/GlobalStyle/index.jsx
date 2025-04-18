@@ -21,7 +21,8 @@ const GlobalStyle = createGlobalStyle`
   --cor-cinza-claro: #94A3B8;
   --cor-cinza-escuro: #1E293B;
   --cor-laranja: #F87415;
-  --cor-amarelo: #FAE08D;
+  --cor-amarelo-claro: #FAE08D;
+   --cor-amarelo-escuro: #FAB92D;
   --cor-background-input: #F7FAFC;
   --cor-icone-carrinho: #020817;
 }

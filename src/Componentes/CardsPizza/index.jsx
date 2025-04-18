@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
+import { IoIosStar } from "react-icons/io";
 import styled from "styled-components";
 
 const ContainerCards = styled.div`
@@ -95,6 +96,31 @@ const BotaoAdicionar = styled.button`
   }
 `;
 
+const ContainerSaborAvaliacao = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ContainerAvaliacao = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+`;
+
+const Avaliacao = styled.p`
+  color: var(--cor-amarelo-escuro);
+  font-size: var(--tamanho-fonte-descricao);
+`;
+
+const IconeEstrela = styled(IoIosStar)`
+  color: var(--cor-amarelo-escuro);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+`;
+
 const CardsPizza = () => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -126,7 +152,13 @@ const CardsPizza = () => {
           <ImagemPizza src={pizza.fotoUm} />
           <Content>
             <Categoria>{pizza.categoria}</Categoria>
-            <Sabor>{pizza.sabor}</Sabor>
+            <ContainerSaborAvaliacao>
+              <Sabor>{pizza.sabor}</Sabor>
+              <ContainerAvaliacao>
+                <IconeEstrela />
+                <Avaliacao>{pizza.avaliacao}</Avaliacao>
+              </ContainerAvaliacao>
+            </ContainerSaborAvaliacao>
             <Descricao>{pizza.descricao}</Descricao>
           </Content>
           <Footer>
