@@ -9,7 +9,10 @@ const ContainerLogomarca = styled.div`
 `;
 
 const H1Estilizado = styled.h1`
-  font-size: var(--tamanho-fonte-xl);
+  font-size: ${(props) =>
+    props.$modo === "header"
+      ? "var(--tamanho-fonte-xl)"
+      : "var(--tamanho-fonte-l)"};
   color: ${(props) =>
     props.$modo === "header" ? "var(--cor-primaria)" : "var(--cor-branca)"};
 `;
