@@ -1,5 +1,39 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
+
+const ContainerPagina = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const ContainerPrincipal = styled.div`
+  display: flex;
+  gap: 2rem;
+`;
+
+const ContainerDetalhes = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ImagemPizza = styled.img`
+  width: 600px;
+`;
+
+const ContainerMaisFotos = styled.div`
+  display: flex;
+`;
+
+const H3Estilizado = styled.h3`
+  font-size: var(--tamanho-fonte-xxl);
+`;
+
+const Categoria = styled.h4`
+  font-size: var(--tamanho-fonte-descricao-pizza);
+`;
 
 const Pizza = () => {
   const [pizzaEncontrada, setPizzaEncontrada] = useState();
@@ -25,13 +59,18 @@ const Pizza = () => {
       setLoading(false);
     });
 
-  if (loading) return <p>Carregando pizzas...</p>;
+  if (loading) return <p>Carregando pizza...</p>;
 
   return (
-    <>
-      <img src={pizzaEncontrada.fotoUm} />
-      <h1>{pizzaEncontrada.sabor}</h1>
-    </>
+    <ContainerPagina>
+      <ContainerPrincipal>
+        <ImagemPizza src={pizzaEncontrada.fotoUm} />
+        <ContainerDetalhes>
+          <Categoria>{pizzaEncontrada.categoria}</Categoria>
+          <H3Estilizado>{pizzaEncontrada.sabor}</H3Estilizado>
+        </ContainerDetalhes>
+      </ContainerPrincipal>
+    </ContainerPagina>
   );
 };
 
