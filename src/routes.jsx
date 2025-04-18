@@ -10,7 +10,7 @@ function AppRoutes() {
       <Header />
       <Routes>
         <Route index element={<Home />} />
-        <Route path="/pizza/:nome" element={<Pizza />} />
+        <Route path="/pizza/:id/:sabor" element={<Pizza />} />
       </Routes>
       <Footer />
     </BrowserRouter>
