@@ -44,7 +44,13 @@ const H3Estilizado = styled.h3`
 `;
 
 const Categoria = styled.h4`
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-weight: bold;
+  width: fit-content;
   font-size: var(--tamanho-fonte-descricao-pizza);
+  background-color: #ffedd5;
+  color: #c1410b;
 `;
 
 const IngredientesTitulo = styled.h3`
