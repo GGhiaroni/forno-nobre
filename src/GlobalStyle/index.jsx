@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
    --cor-amarelo-escuro: #FAB92D;
   --cor-background-input: #F7FAFC;
   --cor-icone-carrinho: #020817;
+  --cor-hover: #de2f22;
 }
 
 body {
