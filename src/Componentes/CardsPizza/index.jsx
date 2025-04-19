@@ -126,7 +126,7 @@ const LinkEstilizado = styled(Link)`
   text-decoration: none;
 `;
 
-const CardsPizza = () => {
+const CardsPizza = ({ categoriaAtiva }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -148,11 +148,16 @@ const CardsPizza = () => {
       });
   }, []);
 
+  const pizzasFiltradas =
+    categoriaAtiva === "Todas"
+      ? pizzas
+      : pizzas.filter((p) => p.categoria === categoriaAtiva);
+
   if (loading) return <p>Carregando pizzas...</p>;
 
   return (
     <ContainerCards>
-      {pizzas.map((pizza, index) => (
+      {pizzasFiltradas.map((pizza, index) => (
         <LinkEstilizado
           to={`/pizza/${pizza.id}/${pizza.sabor
             .toLowerCase()

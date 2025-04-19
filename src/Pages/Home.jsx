@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled from "styled-components";
 import CardsPizza from "../Componentes/CardsPizza";
 import Categorias from "../Componentes/Categorias";
@@ -10,12 +11,17 @@ const ContainerHome = styled.div`
 `;
 
 const Home = () => {
+  const [categoriaAtiva, setCategoriaAtiva] = useState("Todas");
+
   return (
     <>
       <HeroSection />
       <ContainerHome>
-        <Categorias />
-        <CardsPizza />
+        <Categorias
+          categoriaAtiva={categoriaAtiva}
+          setCategoriaAtiva={setCategoriaAtiva}
+        />
+        <CardsPizza categoriaAtiva={categoriaAtiva} />
       </ContainerHome>
     </>
   );

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const UlEstilizado = styled.ul`
@@ -43,7 +42,7 @@ const BtnEstilizado = styled.button`
   font-family: "Poppins", sans-serif;
 `;
 
-const Categorias = () => {
+const Categorias = ({ categoriaAtiva, setCategoriaAtiva }) => {
   const categorias = [
     "Todas",
     "Clássicas",
@@ -51,8 +50,6 @@ const Categorias = () => {
     "Mais bem avaliadas",
     "Mais pedidas",
   ];
-
-  const [categoriaAtiva, setCategoriaAtiva] = useState(categorias[0]);
 
   return (
     <UlEstilizado>
