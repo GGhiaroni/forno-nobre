@@ -35,6 +35,16 @@ const ImagemPizza = styled.img`
 
 const ContainerMaisFotos = styled.div`
   display: flex;
+  margin-top: 1rem;
+  gap: 0.5rem;
+
+  img {
+    border-radius: 8px;
+    width: 100px;
+    height: auto;
+    object-fit: cover;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
 `;
 
 const H3Estilizado = styled.h3`
@@ -135,7 +145,20 @@ const Pizza = () => {
   return (
     <ContainerPagina>
       <ContainerPrincipal>
-        <ImagemPizza src={pizzaEncontrada.fotoUm} />
+        <div>
+          <ImagemPizza src={pizzaEncontrada.fotoUm} />
+          <ContainerMaisFotos>
+            {pizzaEncontrada.fotoUm && (
+              <img src={pizzaEncontrada.fotoUm} alt="Foto extra 1" />
+            )}
+            {pizzaEncontrada.fotoDois && (
+              <img src={pizzaEncontrada.fotoDois} alt="Foto extra 2" />
+            )}
+            {pizzaEncontrada.fotoTres && (
+              <img src={pizzaEncontrada.fotoTres} alt="Foto extra 3" />
+            )}
+          </ContainerMaisFotos>
+        </div>
         <ContainerDetalhes>
           <Categoria>{pizzaEncontrada.categoria}</Categoria>
           <H3Estilizado>{pizzaEncontrada.sabor}</H3Estilizado>
