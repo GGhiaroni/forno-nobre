@@ -6,6 +6,7 @@ const UlEstilizado = styled.ul`
   gap: 20px;
   list-style: none;
   margin-bottom: 2rem;
+  padding: 0;
 `;
 
 const LiEstilizado = styled.li`
@@ -47,8 +48,8 @@ const Categorias = ({ categoriaAtiva, setCategoriaAtiva }) => {
     "Todas",
     "Clássicas",
     "Vegetarianas",
-    "Mais bem avaliadas",
-    "Mais pedidas",
+    "Especiais",
+    "Doces",
   ];
 
   return (
