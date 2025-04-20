@@ -156,7 +156,7 @@ const CardsPizza = ({ categoriaAtiva }) => {
   const pizzasFiltradas =
     categoriaAtiva === "Todas"
       ? pizzas
-      : pizzas.filter((p) => p.categoria === categoriaAtiva);
+      : pizzas.filter((p) => p.categorias.includes(categoriaAtiva));
 
   if (loading) return <p>Carregando pizzas...</p>;
 
