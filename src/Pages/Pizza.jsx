@@ -134,6 +134,12 @@ const ContainerImagensPizza = styled.div`
   flex-direction: column;
 `;
 
+const ContainerCategorias = styled.div`
+  display: flex;
+  gap: 8px;
+  flex-direction: row;
+`;
+
 const Pizza = () => {
   const [pizzaEncontrada, setPizzaEncontrada] = useState();
   const [loading, setLoading] = useState(true);
@@ -216,7 +222,11 @@ const Pizza = () => {
           </ContainerMaisFotos>
         </ContainerImagensPizza>
         <ContainerDetalhes>
-          <Categoria>{pizzaEncontrada.categoria}</Categoria>
+          <ContainerCategorias>
+            {pizzaEncontrada.categorias.map((cat, index) => (
+              <Categoria key={index}>{cat}</Categoria>
+            ))}
+          </ContainerCategorias>
           <H3Estilizado>{pizzaEncontrada.sabor}</H3Estilizado>
           <IngredientesTitulo>Ingredientes:</IngredientesTitulo>
           <UlEstilizado>
