@@ -50,6 +50,11 @@ const Categoria = styled.p`
   font-size: var(--tamanho-fonte-categoria-pizza);
 `;
 
+const ContainerCategorias = styled.div`
+  display: flex;
+  gap: 8px;
+`;
+
 const Sabor = styled.h3`
   margin: 8px 0 4px;
   font-size: var(--tamanho-fonte-nome-pizza);
@@ -166,7 +171,11 @@ const CardsPizza = ({ categoriaAtiva }) => {
           <Card key={index}>
             <ImagemPizza src={pizza.fotoUm} />
             <Content>
-              <Categoria>{pizza.categoria}</Categoria>
+              <ContainerCategorias>
+                {pizza.categorias.map((cat, index) => (
+                  <Categoria key={index}> {cat}</Categoria>
+                ))}
+              </ContainerCategorias>
               <ContainerSaborAvaliacao>
                 <Sabor>{pizza.sabor}</Sabor>
                 <ContainerAvaliacao>
