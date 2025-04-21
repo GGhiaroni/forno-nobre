@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { LuPizza } from "react-icons/lu";
 import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
+import { formatarCategoriaParaURL } from "../utils/formatarCategoriaParaUrl";
 
 const ContainerPagina = styled.div`
   display: flex;
@@ -184,14 +185,6 @@ const Pizza = () => {
       top: 0,
       behavior: "smooth",
     });
-  };
-
-  const formatarCategoriaParaURL = (categoria) => {
-    return categoria
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/\s+/g, "-");
   };
 
   return (
