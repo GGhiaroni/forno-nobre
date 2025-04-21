@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { LuPizza } from "react-icons/lu";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const ContainerPagina = styled.div`
@@ -140,6 +140,11 @@ const ContainerCategorias = styled.div`
   flex-direction: row;
 `;
 
+const LinkCategorias = styled(Link)`
+  display: flex;
+  text-decoration: none;
+`;
+
 const Pizza = () => {
   const [pizzaEncontrada, setPizzaEncontrada] = useState();
   const [loading, setLoading] = useState(true);
@@ -179,6 +184,14 @@ const Pizza = () => {
       top: 0,
       behavior: "smooth",
     });
+  };
+
+  const formatarCategoriaParaURL = (categoria) => {
+    return categoria
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .toLowerCase()
+      .replace(/\s+/g, "-");
   };
 
   return (
@@ -224,7 +237,12 @@ const Pizza = () => {
         <ContainerDetalhes>
           <ContainerCategorias>
             {pizzaEncontrada.categorias.map((cat, index) => (
-              <Categoria key={index}>{cat}</Categoria>
+              <LinkCategorias
+                to={`/categorias/${formatarCategoriaParaURL(cat)}`}
+                key={index}
+              >
+                <Categoria>{cat}</Categoria>
+              </LinkCategorias>
             ))}
           </ContainerCategorias>
           <H3Estilizado>{pizzaEncontrada.sabor}</H3Estilizado>

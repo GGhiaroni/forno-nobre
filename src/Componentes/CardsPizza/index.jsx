@@ -173,7 +173,7 @@ const CardsPizza = ({ categoriaAtiva }) => {
             <Content>
               <ContainerCategorias>
                 {pizza.categorias.map((cat, index) => (
-                  <Categoria key={index}> {cat}</Categoria>
+                  <Categoria key={index}>{cat}</Categoria>
                 ))}
               </ContainerCategorias>
               <ContainerSaborAvaliacao>

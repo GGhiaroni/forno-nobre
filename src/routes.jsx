@@ -3,6 +3,7 @@ import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Home from "./Pages/Home";
 import Pizza from "./Pages/Pizza";
+import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
 
 function AppRoutes() {
   return (
@@ -11,6 +12,10 @@ function AppRoutes() {
       <Routes>
         <Route index element={<Home />} />
         <Route path="/pizza/:id/:sabor" element={<Pizza />} />
+        <Route
+          path="/pizza/categoria/:categoria"
+          element={<PizzasPorCategoria />}
+        />
       </Routes>
       <Footer />
     </BrowserRouter>
