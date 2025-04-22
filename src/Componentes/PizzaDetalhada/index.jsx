@@ -2,6 +2,7 @@ import { useState } from "react";
 import { LuPizza } from "react-icons/lu";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { formatarTextoParaUrl } from "../../utils/formatarTextoParaUrl";
 
 const ContainerPagina = styled.div`
   display: flex;
@@ -201,7 +202,10 @@ const PizzaDetalhada = ({ pizza }) => {
         <ContainerDetalhes>
           <ContainerCategorias>
             {pizza.categorias.map((cat, index) => (
-              <LinkCategorias to={`/categorias/${cat}`} key={index}>
+              <LinkCategorias
+                to={`/categorias/${formatarTextoParaUrl(cat)}`}
+                key={index}
+              >
                 <Categoria>{cat}</Categoria>
               </LinkCategorias>
             ))}
