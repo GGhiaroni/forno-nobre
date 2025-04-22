@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PizzaDetalhada from "../Componentes/PizzaDetalhada";
+import { normalizarTexto } from "../utils/normalizarTexto";
+import { recuperarNomeOriginalCategoria } from "../utils/recuperarNomeOriginalCategoria";
 
 const PizzasPorCategoria = () => {
   const { categoria } = useParams();
@@ -11,10 +13,10 @@ const PizzasPorCategoria = () => {
     fetch("https://6801135281c7e9fbcc416de2.mockapi.io/fornonobre/pizzas")
       .then((res) => res.json())
       .then((data) => {
-        const categoriaNormalizada = categoria.trim().toLowerCase();
+        const categoriaNormalizada = normalizarTexto(categoria);
         const filtradas = data.filter((pizza) =>
           pizza.categorias.some(
-            (cat) => cat.toLowerCase() === categoriaNormalizada
+            (cat) => normalizarTexto(cat) === categoriaNormalizada
           )
         );
         setPizzasFiltradas(filtradas);
@@ -28,7 +30,9 @@ const PizzasPorCategoria = () => {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h2 style={{ textAlign: "center" }}>Pizzas da categoria: {categoria}</h2>
+      <h2 style={{ textAlign: "center" }}>
+        Pizzas da categoria: {recuperarNomeOriginalCategoria(categoria)}
+      </h2>
       {pizzasFiltradas.map((pizza) => (
         <PizzaDetalhada key={pizza.id} pizza={pizza} />
       ))}
