@@ -13,7 +13,7 @@ function AppRoutes() {
         <Route index element={<Home />} />
         <Route path="/pizza/:id/:sabor" element={<Pizza />} />
         <Route
-          path="/pizza/categoria/:categoria"
+          path="/pizza/categorias/:categoria"
           element={<PizzasPorCategoria />}
         />
       </Routes>
