@@ -10,6 +10,8 @@ const PizzasPorCategoria = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+
     fetch("https://6801135281c7e9fbcc416de2.mockapi.io/fornonobre/pizzas")
       .then((res) => res.json())
       .then((data) => {
