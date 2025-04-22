@@ -1,5 +1,5 @@
-export const formatarCategoriaParaURL = (categoria) => {
-  return categoria
+export const formatarTextoParaUrl = (texto) => {
+  return texto
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()

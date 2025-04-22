@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import CardsPizza from "../Componentes/CardsPizza";
+import Pizza from "./Pizza";
 
 const PizzasPorCategoria = () => {
   const { categoria } = useParams();
@@ -13,7 +13,7 @@ const PizzasPorCategoria = () => {
   return (
     <div style={{ padding: "2rem" }}>
       <h2>Pizzas da categoria: {categoria}</h2>
-      <CardsPizza
+      <Pizza
         categoriaAtiva={
           categoria.trim().charAt(0).toUpperCase() + categoria.trim().slice(1)
         }

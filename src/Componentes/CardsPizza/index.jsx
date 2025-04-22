@@ -3,6 +3,7 @@ import { FaPlus } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { formatarTextoParaUrl } from "../../utils/formatarTextoParaUrl";
 
 const ContainerCards = styled.div`
   display: grid;
@@ -164,9 +165,7 @@ const CardsPizza = ({ categoriaAtiva }) => {
     <ContainerCards>
       {pizzasFiltradas.map((pizza, index) => (
         <LinkEstilizado
-          to={`/pizza/${pizza.id}/${pizza.sabor
-            .toLowerCase()
-            .replace(/\s+/g, "-")}`}
+          to={`/pizza/${pizza.id}/${formatarTextoParaUrl(pizza.sabor)}`}
         >
           <Card key={index}>
             <ImagemPizza src={pizza.fotoUm} />
