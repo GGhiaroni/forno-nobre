@@ -1,9 +1,14 @@
 import { createContext, useContext } from "react";
+import { carrinhoStore } from "./carrinhoStore";
 
 export const StoreContext = createContext(null);
 
 export const StoreProvider = ({ children }) => {
-  return <StoreContext.Provider>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={{ carrinhoStore }}>
+      {children}
+    </StoreContext.Provider>
+  );
 };
 
 export const useStoreContext = () => {
