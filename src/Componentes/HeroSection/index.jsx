@@ -5,13 +5,20 @@ import logoBranca from "/public/logo-forno-nobre-branco.png";
 const HeroSectionEstilizado = styled.section`
   position: relative;
   width: 100%;
-  height: 40vh;
+  height: 60vh;
   background-image: url(${imagemHeroSection});
   background-size: cover;
   display: flex;
   align-items: center;
   padding: 4rem;
   color: var(--cor-branca);
+  box-sizing: border-box;
+  overflow-y: hidden;
+  overflow-x: hidden;
+
+  img {
+    object-fit: cover;
+  }
 
   &::before {
     content: "";
@@ -20,7 +27,7 @@ const HeroSectionEstilizado = styled.section`
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
   }
 `;
