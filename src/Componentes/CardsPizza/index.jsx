@@ -1,8 +1,11 @@
+import { toJS } from "mobx";
+import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useStoreContext } from "../../mobx/StoreContext";
 import { formatarTextoParaUrl } from "../../utils/formatarTextoParaUrl";
 
 const ContainerCards = styled.div`
@@ -132,9 +135,11 @@ const LinkEstilizado = styled(Link)`
   text-decoration: none;
 `;
 
-const CardsPizza = ({ categoriaAtiva }) => {
+const CardsPizza = observer(({ categoriaAtiva }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const { carrinhoStore } = useStoreContext();
 
   useEffect(() => {
     fetch("https://6801135281c7e9fbcc416de2.mockapi.io/fornonobre/pizzas")
@@ -188,7 +193,16 @@ const CardsPizza = ({ categoriaAtiva }) => {
               <Preco>
                 R$ {Number(pizza.preco).toFixed(2).replace(".", ",")}
               </Preco>
-              <BotaoAdicionar>
+              <BotaoAdicionar
+                onClick={(e) => {
+                  e.preventDefault();
+                  carrinhoStore.adicionarAoCarrinho(pizza);
+                  console.log(
+                    "Carrinho atualizado:",
+                    toJS(carrinhoStore.itensNoCarrinho)
+                  );
+                }}
+              >
                 <FaPlus size={20} />
               </BotaoAdicionar>
             </Footer>
@@ -197,6 +211,6 @@ const CardsPizza = ({ categoriaAtiva }) => {
       ))}
     </ContainerCards>
   );
-};
+});
 
 export default CardsPizza;
