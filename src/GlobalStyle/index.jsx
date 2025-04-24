@@ -35,6 +35,13 @@ body {
   background-color: var(--cor-branca);
 }
 
+[data-sonner-toast] {
+  font-size: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  padding: 16px;
+  border-radius: 12px;
+}
+
 `;
 
 export default GlobalStyle;

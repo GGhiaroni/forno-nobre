@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Toaster } from "sonner";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Home from "./Pages/Home";
@@ -15,6 +16,7 @@ function AppRoutes() {
         <Route path="/categorias/:categoria" element={<PizzasPorCategoria />} />
       </Routes>
       <Footer />
+      <Toaster position="top-right" richColors />
     </BrowserRouter>
   );
 }

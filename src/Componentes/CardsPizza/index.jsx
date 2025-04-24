@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosStar } from "react-icons/io";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import styled from "styled-components";
 import { useStoreContext } from "../../mobx/StoreContext";
 import { formatarTextoParaUrl } from "../../utils/formatarTextoParaUrl";
@@ -197,6 +198,9 @@ const CardsPizza = observer(({ categoriaAtiva }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   carrinhoStore.adicionarAoCarrinho(pizza);
+                  toast.success(
+                    `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`
+                  );
                   console.log(
                     "Carrinho atualizado:",
                     toJS(carrinhoStore.itensNoCarrinho)
