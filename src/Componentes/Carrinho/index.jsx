@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { IoCartSharp } from "react-icons/io5";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useStoreContext } from "../../mobx/StoreContext";
 
@@ -28,10 +29,12 @@ const Carrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
   return (
     <CarrinhoContainer>
-      <IoCartSharp size={30} color="#333" />
-      {carrinhoStore.totalItensNoCarrinho > 0 && (
-        <Badge>{carrinhoStore.totalItensNoCarrinho}</Badge>
-      )}
+      <Link to="carrinho">
+        <IoCartSharp size={30} color="#333" />
+        {carrinhoStore.totalItensNoCarrinho > 0 && (
+          <Badge>{carrinhoStore.totalItensNoCarrinho}</Badge>
+        )}
+      </Link>
     </CarrinhoContainer>
   );
 });
