@@ -1,5 +1,6 @@
 import { IoCartSharp } from "react-icons/io5";
 import { TiArrowLeft } from "react-icons/ti";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ContainerPrincipal = styled.div`
@@ -64,6 +65,10 @@ const ContainerIconeETextoSeta = styled.div`
   }
 `;
 
+const LinkEstilizado = styled(Link)`
+  text-decoration: none;
+`;
+
 const PaginaCarrinho = () => {
   return (
     <ContainerPrincipal>
@@ -72,10 +77,12 @@ const PaginaCarrinho = () => {
           <IconeCarrinho />
           <TextoIconeCarrinho>Carrinho de compras</TextoIconeCarrinho>
         </ContainerIconeETexto>
-        <ContainerIconeETextoSeta>
-          <IconeSeta />
-          <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
-        </ContainerIconeETextoSeta>
+        <LinkEstilizado to="/">
+          <ContainerIconeETextoSeta>
+            <IconeSeta />
+            <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
+          </ContainerIconeETextoSeta>
+        </LinkEstilizado>
       </ContainerTopo>
     </ContainerPrincipal>
   );
