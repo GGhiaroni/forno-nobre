@@ -1,7 +1,9 @@
+import { observer } from "mobx-react-lite";
 import { IoCartSharp } from "react-icons/io5";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useStoreContext } from "../mobx/StoreContext";
 
 const ContainerPrincipal = styled.div`
   width: 100%;
@@ -10,7 +12,7 @@ const ContainerPrincipal = styled.div`
 `;
 
 const ContainerTopo = styled.div`
-  margin-top: 10rem;
+  margin-top: 8rem;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -69,7 +71,50 @@ const LinkEstilizado = styled(Link)`
   text-decoration: none;
 `;
 
-const PaginaCarrinho = () => {
+const DivEstilizada = styled.div`
+  margin-top: 5rem;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+`;
+
+const H3Estilizado = styled.h3`
+  font-size: var(--tamanho-fonte-xxl);
+  font-weight: 600;
+  color: var(--cor-cinza-escuro);
+  line-height: 1.2;
+  margin: 0;
+`;
+
+const TextoSecundario = styled.p`
+  font-size: var(--tamanho-fonte-l);
+  font-weight: 300;
+  color: var(--cor-cinza-medio);
+  margin: 0;
+  line-height: 1.4;
+`;
+
+const Btn = styled.button`
+  background-color: var(--cor-primaria);
+  color: var(--cor-branca);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: var(--cor-hover);
+  }
+`;
+
+const PaginaCarrinho = observer(() => {
+  const { carrinhoStore } = useStoreContext();
+
   return (
     <ContainerPrincipal>
       <ContainerTopo>
@@ -84,8 +129,19 @@ const PaginaCarrinho = () => {
           </ContainerIconeETextoSeta>
         </LinkEstilizado>
       </ContainerTopo>
+      {carrinhoStore.totalItensNoCarrinho === 0 && (
+        <DivEstilizada>
+          <H3Estilizado>Seu carrinho está vazio</H3Estilizado>
+          <TextoSecundario>
+            Adicione alguma pizza para prosseguir com o checkout.
+          </TextoSecundario>
+          <Link to="/">
+            <Btn>Ver cardápio</Btn>
+          </Link>
+        </DivEstilizada>
+      )}
     </ContainerPrincipal>
   );
-};
+});
 
 export default PaginaCarrinho;
