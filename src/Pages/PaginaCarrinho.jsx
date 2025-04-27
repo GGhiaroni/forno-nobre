@@ -4,6 +4,7 @@ import { IoCartSharp } from "react-icons/io5";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import imagemCarrinhoVazio from "../../src/assets/carrinho-vazio.png";
 import { useStoreContext } from "../mobx/StoreContext";
 
 const ContainerPrincipal = styled.div`
@@ -127,6 +128,10 @@ const DivEstilizadaCarrinhoComItens = styled.div`
   gap: 1rem;
 `;
 
+const ImgCarrinhoVazio = styled.img`
+  width: 250px;
+`;
+
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -161,7 +166,11 @@ const PaginaCarrinho = observer(() => {
       </ContainerTopo>
       {carrinhoStore.totalItensNoCarrinho === 0 && (
         <DivEstilizada>
-          <H3Estilizado>Seu carrinho está vazio</H3Estilizado>
+          <H3Estilizado>Ops, seu carrinho está vazio.</H3Estilizado>
+          <ImgCarrinhoVazio
+            src={imagemCarrinhoVazio}
+            alt="imagem carrinho vazio"
+          />
           <TextoSecundario>
             Adicione alguma pizza para prosseguir com o checkout.
           </TextoSecundario>
