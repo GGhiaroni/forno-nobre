@@ -1,4 +1,5 @@
 import { observer } from "mobx-react-lite";
+import { FaTrash } from "react-icons/fa";
 import { IoCartSharp } from "react-icons/io5";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -27,6 +28,11 @@ const IconeSeta = styled(TiArrowLeft)`
   font-size: 2rem;
   color: var(--cor-cinza-medio);
   transition: color 0.3s ease, transform 0.3s ease;
+`;
+
+const IconeLixeira = styled(FaTrash)`
+  font-size: 1rem;
+  color: var(--cor-cinza-medio);
 `;
 
 const TextoIconeCarrinho = styled.h3`
@@ -59,6 +65,10 @@ const ContainerIconeETextoSeta = styled.div`
     ${IconeSeta} {
       color: var(--cor-primaria);
       transform: translateX(-4px);
+    }
+
+    ${IconeLixeira} {
+      color: var(--cor-primaria);
     }
 
     ${TextoIconeSeta} {
@@ -112,6 +122,11 @@ const Btn = styled.button`
   }
 `;
 
+const DivEstilizadaCarrinhoComItens = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -122,12 +137,27 @@ const PaginaCarrinho = observer(() => {
           <IconeCarrinho />
           <TextoIconeCarrinho>Carrinho de compras</TextoIconeCarrinho>
         </ContainerIconeETexto>
-        <LinkEstilizado to="/">
-          <ContainerIconeETextoSeta>
-            <IconeSeta />
-            <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
-          </ContainerIconeETextoSeta>
-        </LinkEstilizado>
+        {carrinhoStore.totalItensNoCarrinho === 0 ? (
+          <LinkEstilizado to="/">
+            <ContainerIconeETextoSeta>
+              <IconeSeta />
+              <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
+            </ContainerIconeETextoSeta>
+          </LinkEstilizado>
+        ) : (
+          <DivEstilizadaCarrinhoComItens>
+            <LinkEstilizado to="/">
+              <ContainerIconeETextoSeta>
+                <IconeSeta />
+                <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
+              </ContainerIconeETextoSeta>
+            </LinkEstilizado>
+            <ContainerIconeETextoSeta style={{ gap: "5px" }}>
+              <IconeLixeira />
+              <TextoIconeSeta>Limpar carrinho</TextoIconeSeta>
+            </ContainerIconeETextoSeta>
+          </DivEstilizadaCarrinhoComItens>
+        )}
       </ContainerTopo>
       {carrinhoStore.totalItensNoCarrinho === 0 && (
         <DivEstilizada>
