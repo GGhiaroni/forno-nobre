@@ -135,6 +135,10 @@ const ImgCarrinhoVazio = styled.img`
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
+  const limparCarrinho = () => {
+    carrinhoStore.limparCarrinho();
+  };
+
   return (
     <ContainerPrincipal>
       <ContainerTopo>
@@ -159,7 +163,9 @@ const PaginaCarrinho = observer(() => {
             </LinkEstilizado>
             <ContainerIconeETextoSeta style={{ gap: "5px" }}>
               <IconeLixeira />
-              <TextoIconeSeta>Limpar carrinho</TextoIconeSeta>
+              <TextoIconeSeta onClick={() => limparCarrinho()}>
+                Limpar carrinho
+              </TextoIconeSeta>
             </ContainerIconeETextoSeta>
           </DivEstilizadaCarrinhoComItens>
         )}
