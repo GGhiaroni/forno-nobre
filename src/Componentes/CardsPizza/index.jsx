@@ -199,7 +199,10 @@ const CardsPizza = observer(({ categoriaAtiva }) => {
                   e.preventDefault();
                   carrinhoStore.adicionarAoCarrinho(pizza);
                   toast.success(
-                    `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`
+                    `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`,
+                    {
+                      duration: 2000,
+                    }
                   );
                   console.log(
                     "Carrinho atualizado:",
