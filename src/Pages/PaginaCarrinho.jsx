@@ -132,6 +132,13 @@ const ImgCarrinhoVazio = styled.img`
   width: 250px;
 `;
 
+const PizzasNoCarrinho = styled.div`
+  margin-top: 1rem;
+  display: flex;
+  padding: 1.5rem;
+  border: 1px solid var(--cinza-claro);
+`;
+
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -146,6 +153,7 @@ const PaginaCarrinho = observer(() => {
           <IconeCarrinho />
           <TextoIconeCarrinho>Carrinho de compras</TextoIconeCarrinho>
         </ContainerIconeETexto>
+
         {carrinhoStore.totalItensNoCarrinho === 0 ? (
           <LinkEstilizado to="/">
             <ContainerIconeETextoSeta>
@@ -154,23 +162,104 @@ const PaginaCarrinho = observer(() => {
             </ContainerIconeETextoSeta>
           </LinkEstilizado>
         ) : (
-          <DivEstilizadaCarrinhoComItens>
-            <LinkEstilizado to="/">
-              <ContainerIconeETextoSeta>
-                <IconeSeta />
-                <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
+          <>
+            <DivEstilizadaCarrinhoComItens>
+              <LinkEstilizado to="/">
+                <ContainerIconeETextoSeta>
+                  <IconeSeta />
+                  <TextoIconeSeta>Continuar comprando</TextoIconeSeta>
+                </ContainerIconeETextoSeta>
+              </LinkEstilizado>
+              <ContainerIconeETextoSeta style={{ gap: "5px" }}>
+                <IconeLixeira />
+                <TextoIconeSeta onClick={limparCarrinho}>
+                  Limpar carrinho
+                </TextoIconeSeta>
               </ContainerIconeETextoSeta>
-            </LinkEstilizado>
-            <ContainerIconeETextoSeta style={{ gap: "5px" }}>
-              <IconeLixeira />
-              <TextoIconeSeta onClick={() => limparCarrinho()}>
-                Limpar carrinho
-              </TextoIconeSeta>
-            </ContainerIconeETextoSeta>
-          </DivEstilizadaCarrinhoComItens>
+            </DivEstilizadaCarrinhoComItens>
+          </>
         )}
       </ContainerTopo>
-      {carrinhoStore.totalItensNoCarrinho === 0 && (
+
+      {carrinhoStore.totalItensNoCarrinho > 0 ? (
+        <DivEstilizadaCarrinhoComItens style={{ marginTop: "2rem" }}>
+          <div style={{ flex: 2 }}>
+            {carrinhoStore.itensNoCarrinho.map((item) => (
+              <PizzasNoCarrinho key={item.id}>
+                <img
+                  src={item.imagem}
+                  alt={item.nome}
+                  style={{ width: "100px", marginRight: "1rem" }}
+                />
+                <div style={{ flex: 1 }}>
+                  <h3>{item.nome}</h3>
+                  <p>R$ {item.preco.toFixed(2)} cada</p>
+                  <p>Quantidade: {item.quantidade}</p>
+                </div>
+                <div>
+                  <strong>
+                    R$ {(item.preco * item.quantidade).toFixed(2)}
+                  </strong>
+                </div>
+              </PizzasNoCarrinho>
+            ))}
+          </div>
+
+          <div
+            style={{
+              flex: 1,
+              border: "1px solid var(--cinza-claro)",
+              padding: "1.5rem",
+              borderRadius: "8px",
+              height: "fit-content",
+            }}
+          >
+            <h3>Resumo do pedido</h3>
+            <div style={{ marginBottom: "1rem" }}>
+              {carrinhoStore.itensNoCarrinho.map((item) => (
+                <div
+                  key={item.id}
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
+                  <span>
+                    {item.quantidade}x {item.nome}
+                  </span>
+                  <span>R$ {(item.preco * item.quantidade).toFixed(2)}</span>
+                </div>
+              ))}
+            </div>
+            <hr />
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "1rem",
+              }}
+            >
+              <strong>Total:</strong>
+              <strong>
+                R$ {carrinhoStore.totalPrecoDoCarrinho.toFixed(2)}
+              </strong>
+            </div>
+            <button
+              style={{
+                marginTop: "1.5rem",
+                width: "100%",
+                padding: "0.8rem",
+                backgroundColor: "var(--cor-primaria)",
+                color: "white",
+                fontWeight: "600",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+              }}
+            >
+              Finalizar Pedido
+            </button>
+          </div>
+        </DivEstilizadaCarrinhoComItens>
+      ) : (
+        // Carrinho vazio
         <DivEstilizada>
           <H3Estilizado>Ops, seu carrinho está vazio.</H3Estilizado>
           <ImgCarrinhoVazio
