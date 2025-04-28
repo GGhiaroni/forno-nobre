@@ -126,6 +126,7 @@ const Btn = styled.button`
 const DivEstilizadaCarrinhoComItens = styled.div`
   display: flex;
   gap: 1rem;
+  border: 1px solid var(--cinza-claro);
 `;
 
 const ImgCarrinhoVazio = styled.img`
@@ -136,7 +137,56 @@ const PizzasNoCarrinho = styled.div`
   margin-top: 1rem;
   display: flex;
   padding: 1.5rem;
-  border: 1px solid var(--cinza-claro);
+  border: 1px solid var(--cor-cinza-claro);
+`;
+
+const CardResumoPedido = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cor-cinza-claro);
+  padding: 1.5rem;
+  border-radius: 8px;
+`;
+
+const H3ResumoPedido = styled.div`
+  font-size: var(--tamanho-fonte-xl);
+  line-height: 30px;
+  font-weight: 600;
+  color: var(--cor-cinza-escuro);
+  margin-bottom: 1.5rem;
+`;
+
+const SpanQuantidadePizzaNoCarrinho = styled.span`
+  color: var(--cor-primaria);
+  font-weight: 600;
+`;
+
+const SpanPrecoItemNoCarrinho = styled.span`
+  font-weight: 600;
+  color: var(--cor-cinza-escuro);
+`;
+
+const ContainerResumoPedido = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const BtnProsseguirCheckout = styled.button`
+  background-color: var(--cor-primaria);
+  color: var(--cor-branca);
+  font-weight: 600;
+  line-height: 24px;
+  font-size: var(--tamanho-fonte-l);
+  padding: 1rem 3.5rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+
+  &:hover {
+    background-color: var(--cor-hover);
+  }
 `;
 
 const PaginaCarrinho = observer(() => {
@@ -187,79 +237,78 @@ const PaginaCarrinho = observer(() => {
             {carrinhoStore.itensNoCarrinho.map((item) => (
               <PizzasNoCarrinho key={item.id}>
                 <img
-                  src={item.imagem}
+                  src={item.fotoUm}
                   alt={item.nome}
                   style={{ width: "100px", marginRight: "1rem" }}
                 />
                 <div style={{ flex: 1 }}>
                   <h3>{item.nome}</h3>
-                  <p>R$ {item.preco.toFixed(2)} cada</p>
+                  <p>R$ {item.preco.toFixed(2).replace(".", ",")} cada</p>
                   <p>Quantidade: {item.quantidade}</p>
                 </div>
                 <div>
                   <strong>
-                    R$ {(item.preco * item.quantidade).toFixed(2)}
+                    R${" "}
+                    {(item.preco * item.quantidade)
+                      .toFixed(2)
+                      .replace(".", ",")}
                   </strong>
                 </div>
               </PizzasNoCarrinho>
             ))}
           </div>
 
-          <div
-            style={{
-              flex: 1,
-              border: "1px solid var(--cinza-claro)",
-              padding: "1.5rem",
-              borderRadius: "8px",
-              height: "fit-content",
-            }}
-          >
-            <h3>Resumo do pedido</h3>
-            <div style={{ marginBottom: "1rem" }}>
-              {carrinhoStore.itensNoCarrinho.map((item) => (
-                <div
-                  key={item.id}
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <span>
-                    {item.quantidade}x {item.nome}
-                  </span>
-                  <span>R$ {(item.preco * item.quantidade).toFixed(2)}</span>
-                </div>
-              ))}
-            </div>
-            <hr />
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "1rem",
-              }}
-            >
-              <strong>Total:</strong>
-              <strong>
-                R$ {carrinhoStore.totalPrecoDoCarrinho.toFixed(2)}
-              </strong>
-            </div>
-            <button
-              style={{
-                marginTop: "1.5rem",
-                width: "100%",
-                padding: "0.8rem",
-                backgroundColor: "var(--cor-primaria)",
-                color: "white",
-                fontWeight: "600",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-              }}
-            >
-              Finalizar Pedido
-            </button>
-          </div>
+          <ContainerResumoPedido>
+            <CardResumoPedido>
+              <H3ResumoPedido>Resumo do pedido</H3ResumoPedido>
+              <div style={{ marginBottom: "1rem" }}>
+                {carrinhoStore.itensNoCarrinho.map((item) => (
+                  <div
+                    key={item.id}
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <div style={{ display: "flex", gap: "10px" }}>
+                      <SpanQuantidadePizzaNoCarrinho>
+                        {item.quantidade}
+                      </SpanQuantidadePizzaNoCarrinho>
+                      <SpanQuantidadePizzaNoCarrinho
+                        style={{ color: "var(--cor-cinza-escuro)" }}
+                      >
+                        {item.sabor}
+                      </SpanQuantidadePizzaNoCarrinho>
+                    </div>
+                    <SpanPrecoItemNoCarrinho>
+                      R${" "}
+                      {(item.preco * item.quantidade)
+                        .toFixed(2)
+                        .replace(".", ",")}
+                    </SpanPrecoItemNoCarrinho>
+                  </div>
+                ))}
+              </div>
+              <hr />
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginTop: "1rem",
+                }}
+              >
+                <strong>Total:</strong>
+                <strong>
+                  R${" "}
+                  {carrinhoStore.totalPrecoDoCarrinho
+                    .toFixed(2)
+                    .replace(".", ",")}
+                </strong>
+              </div>
+            </CardResumoPedido>
+            <BtnProsseguirCheckout>
+              Prosseguir para o pagamento
+            </BtnProsseguirCheckout>
+          </ContainerResumoPedido>
         </DivEstilizadaCarrinhoComItens>
       ) : (
-        // Carrinho vazio
         <DivEstilizada>
           <H3Estilizado>Ops, seu carrinho está vazio.</H3Estilizado>
           <ImgCarrinhoVazio
