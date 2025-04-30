@@ -242,9 +242,8 @@ const PaginaCarrinho = observer(() => {
                   style={{ width: "100px", marginRight: "1rem" }}
                 />
                 <div style={{ flex: 1 }}>
-                  <h3>{item.nome}</h3>
+                  <h3>{item.sabor}</h3>
                   <p>R$ {item.preco.toFixed(2).replace(".", ",")} cada</p>
-                  <p>Quantidade: {item.quantidade}</p>
                 </div>
                 <div>
                   <strong>
