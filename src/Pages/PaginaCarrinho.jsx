@@ -127,6 +127,7 @@ const DivEstilizadaCarrinhoComItens = styled.div`
   display: flex;
   gap: 1rem;
   border: 1px solid var(--cinza-claro);
+  border-radius: 5px;
 `;
 
 const ImgCarrinhoVazio = styled.img`
@@ -138,6 +139,7 @@ const PizzasNoCarrinho = styled.div`
   display: flex;
   padding: 1.5rem;
   border: 1px solid var(--cor-cinza-claro);
+  border-radius: 5px;
 `;
 
 const CardResumoPedido = styled.div`
@@ -189,6 +191,16 @@ const BtnProsseguirCheckout = styled.button`
   }
 `;
 
+const CardEsquerdoResumo = styled.div`
+  flex: 2;
+  border-radius: 25px;
+`;
+
+const ContainerQuantidadePreco = styled.div`
+  display: flex;
+  gap: 5px;
+`;
+
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -232,30 +244,37 @@ const PaginaCarrinho = observer(() => {
       </ContainerTopo>
 
       {carrinhoStore.totalItensNoCarrinho > 0 ? (
-        <DivEstilizadaCarrinhoComItens style={{ marginTop: "2rem" }}>
-          <div style={{ flex: 2 }}>
+        <DivEstilizadaCarrinhoComItens>
+          <CardEsquerdoResumo>
             {carrinhoStore.itensNoCarrinho.map((item) => (
               <PizzasNoCarrinho key={item.id}>
                 <img
                   src={item.fotoUm}
                   alt={item.nome}
-                  style={{ width: "100px", marginRight: "1rem" }}
+                  style={{
+                    width: "100px",
+                    marginRight: "1rem",
+                    borderRadius: "10px",
+                  }}
                 />
                 <div style={{ flex: 1 }}>
                   <h3>{item.sabor}</h3>
                   <p>R$ {item.preco.toFixed(2).replace(".", ",")} cada</p>
                 </div>
-                <div>
+                <ContainerQuantidadePreco>
+                  <FaTrash
+                    style={{ color: "var(--cor-primaria)", fontSize: "1.3rem" }}
+                  />
                   <strong>
                     R${" "}
                     {(item.preco * item.quantidade)
                       .toFixed(2)
                       .replace(".", ",")}
                   </strong>
-                </div>
+                </ContainerQuantidadePreco>
               </PizzasNoCarrinho>
             ))}
-          </div>
+          </CardEsquerdoResumo>
 
           <ContainerResumoPedido>
             <CardResumoPedido>
