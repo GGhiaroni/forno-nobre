@@ -201,7 +201,7 @@ const CardsPizza = observer(({ categoriaAtiva }) => {
                   toast.success(
                     `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`,
                     {
-                      duration: 2000,
+                      duration: 1200,
                     }
                   );
                   console.log(

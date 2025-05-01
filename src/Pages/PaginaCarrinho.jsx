@@ -201,11 +201,21 @@ const ContainerQuantidadePreco = styled.div`
   gap: 5px;
 `;
 
+const PrecoContainerQuantidade = styled.span`
+  font-size: var(--tamanho-fonte-l);
+  font-weight: bold;
+  line-height: 24px;
+`;
+
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
   const limparCarrinho = () => {
     carrinhoStore.limparCarrinho();
+  };
+
+  const removerItemDoCarrinho = (id) => {
+    carrinhoStore.removerDoCarrinho(id);
   };
 
   return (
@@ -246,8 +256,8 @@ const PaginaCarrinho = observer(() => {
       {carrinhoStore.totalItensNoCarrinho > 0 ? (
         <DivEstilizadaCarrinhoComItens>
           <CardEsquerdoResumo>
-            {carrinhoStore.itensNoCarrinho.map((item) => (
-              <PizzasNoCarrinho key={item.id}>
+            {carrinhoStore.itensNoCarrinho.map((item, index) => (
+              <PizzasNoCarrinho key={index}>
                 <img
                   src={item.fotoUm}
                   alt={item.nome}
@@ -263,14 +273,19 @@ const PaginaCarrinho = observer(() => {
                 </div>
                 <ContainerQuantidadePreco>
                   <FaTrash
-                    style={{ color: "var(--cor-primaria)", fontSize: "1.3rem" }}
+                    style={{
+                      color: "var(--cor-primaria)",
+                      fontSize: "1.3rem",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => removerItemDoCarrinho(item.id)}
                   />
-                  <strong>
+                  <PrecoContainerQuantidade>
                     R${" "}
                     {(item.preco * item.quantidade)
                       .toFixed(2)
                       .replace(".", ",")}
-                  </strong>
+                  </PrecoContainerQuantidade>
                 </ContainerQuantidadePreco>
               </PizzasNoCarrinho>
             ))}
