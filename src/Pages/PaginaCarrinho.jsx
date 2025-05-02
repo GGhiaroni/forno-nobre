@@ -18,7 +18,7 @@ const ContainerPrincipal = styled.div`
 const ContainerTopo = styled.div`
   margin-top: 8rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 `;
 
@@ -127,7 +127,7 @@ const Btn = styled.button`
 
 const DivEstilizadaCarrinhoComItens = styled.div`
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   border: 1px solid var(--cinza-claro);
   border-radius: 5px;
 `;
