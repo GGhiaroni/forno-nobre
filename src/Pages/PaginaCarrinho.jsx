@@ -5,6 +5,7 @@ import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import imagemCarrinhoVazio from "../../src/assets/carrinho-vazio.png";
+import ControleQuantidade from "../Componentes/ControleQuantidade";
 import { useStoreContext } from "../mobx/StoreContext";
 
 const ContainerPrincipal = styled.div`
@@ -273,6 +274,15 @@ const PaginaCarrinho = observer(() => {
                   <p>R$ {item.preco.toFixed(2).replace(".", ",")} cada</p>
                 </div>
                 <ContainerQuantidadePreco>
+                  <ControleQuantidade
+                    quantidade={item.quantidade}
+                    onIncrementar={() =>
+                      carrinhoStore.incrementarQuantidade(item.id)
+                    }
+                    onDecrementar={() =>
+                      carrinhoStore.decrementarQuantidade(item.id)
+                    }
+                  />
                   <FaTrash
                     style={{
                       color: "var(--cor-primaria)",
