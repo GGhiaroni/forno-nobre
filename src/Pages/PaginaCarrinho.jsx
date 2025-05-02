@@ -7,6 +7,7 @@ import styled from "styled-components";
 import imagemCarrinhoVazio from "../../src/assets/carrinho-vazio.png";
 import ControleQuantidade from "../Componentes/ControleQuantidade";
 import { useStoreContext } from "../mobx/StoreContext";
+import { formatarPreco } from "../utils/formatarPreco";
 
 const ContainerPrincipal = styled.div`
   width: 100%;
@@ -273,13 +274,7 @@ const PaginaCarrinho = observer(() => {
                 />
                 <div style={{ flex: 1 }}>
                   <h3>{item.sabor}</h3>
-                  <p>
-                    {item.preco.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}{" "}
-                    cada
-                  </p>
+                  <p>{formatarPreco(item.preco)} cada</p>
                 </div>
                 <ContainerQuantidadePreco>
                   <ControleQuantidade
@@ -300,11 +295,7 @@ const PaginaCarrinho = observer(() => {
                     onClick={() => removerItemDoCarrinho(item.id)}
                   />
                   <PrecoContainerQuantidade>
-                    {" "}
-                    {(item.preco * item.quantidade).toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
-                    })}
+                    {formatarPreco(item.preco * item.quantidade)}
                   </PrecoContainerQuantidade>
                 </ContainerQuantidadePreco>
               </PizzasNoCarrinho>
@@ -331,10 +322,7 @@ const PaginaCarrinho = observer(() => {
                       </SpanQuantidadePizzaNoCarrinho>
                     </div>
                     <SpanPrecoItemNoCarrinho>
-                      R${" "}
-                      {(item.preco * item.quantidade)
-                        .toFixed(2)
-                        .replace(".", ",")}
+                      {formatarPreco(item.preco * item.quantidade)}
                     </SpanPrecoItemNoCarrinho>
                   </div>
                 ))}
@@ -349,10 +337,7 @@ const PaginaCarrinho = observer(() => {
               >
                 <strong>Total:</strong>
                 <strong>
-                  {carrinhoStore.totalPrecoDoCarrinho.toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
+                  {formatarPreco(carrinhoStore.totalPrecoDoCarrinho)}
                 </strong>
               </div>
             </CardResumoPedido>
