@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
 import CardsPizza from "../Componentes/CardsPizza";
 import Categorias from "../Componentes/Categorias";
@@ -10,18 +10,39 @@ const ContainerHome = styled.div`
   margin: 0 auto;
 `;
 
+const SecaoCardapio = styled.section`
+  scroll-margin-top: 100px;
+`;
+
 const Home = () => {
   const [categoriaAtiva, setCategoriaAtiva] = useState("Todas");
 
+  const cardapioRef = useRef(null);
+
+  const scrollParaCardapio = () => {
+    const offset = 130;
+    const top =
+      cardapioRef.current.getBoundingClientRect().top +
+      window.pageYOffset -
+      offset;
+
+    window.scrollTo({
+      top,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <>
-      <HeroSection />
+      <HeroSection scrollParaCardapio={scrollParaCardapio} />
       <ContainerHome>
         <Categorias
           categoriaAtiva={categoriaAtiva}
           setCategoriaAtiva={setCategoriaAtiva}
         />
-        <CardsPizza categoriaAtiva={categoriaAtiva} />
+        <SecaoCardapio ref={cardapioRef}>
+          <CardsPizza categoriaAtiva={categoriaAtiva} />
+        </SecaoCardapio>
       </ContainerHome>
     </>
   );

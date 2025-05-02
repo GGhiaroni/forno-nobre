@@ -72,17 +72,16 @@ const LogoBranca = styled.img`
   height: 30px;
 `;
 
-const HeroSection = () => {
+const HeroSection = ({ scrollParaCardapio }) => {
   return (
     <HeroSectionEstilizado>
       <HeroContent>
-        <h1>Sabores inigualáveis em cada pedaço</h1>
+        <h1>Sabores inigualáveis em cada pedaço.</h1>
         <p>
           As melhores pizzas da região, feitas com ingredientes selecionados e
           muito amor. Experimente nossa variedade de sabores exclusivos.
         </p>
-        <button>
-          {" "}
+        <button onClick={scrollParaCardapio}>
           <LogoBranca src={logoBranca} />
           Ver Cardápio
         </button>
