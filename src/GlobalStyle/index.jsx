@@ -42,6 +42,20 @@ body {
   border-radius: 12px;
 }
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.conteudo {
+  flex: 1;
+}
 `;
 
 export default GlobalStyle;

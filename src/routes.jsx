@@ -10,14 +10,21 @@ import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
 function AppRoutes() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="/pizza/:id/:sabor" element={<Pizza />} />
-        <Route path="/categorias/:categoria" element={<PizzasPorCategoria />} />
-        <Route path="/carrinho" element={<PaginaCarrinho />} />
-      </Routes>
-      <Footer />
+      <div className="layout">
+        <Header />
+        <main className="conteudo">
+          <Routes>
+            <Route index element={<Home />} />
+            <Route path="/pizza/:id/:sabor" element={<Pizza />} />
+            <Route
+              path="/categorias/:categoria"
+              element={<PizzasPorCategoria />}
+            />
+            <Route path="/carrinho" element={<PaginaCarrinho />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
       <Toaster position="top-right" richColors />
     </BrowserRouter>
   );
