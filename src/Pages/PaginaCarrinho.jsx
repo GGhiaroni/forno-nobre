@@ -201,12 +201,14 @@ const ContainerQuantidadePreco = styled.div`
   display: flex;
   gap: 25px;
   justify-content: center;
+  align-items: center;
 `;
 
 const PrecoContainerQuantidade = styled.span`
   font-size: var(--tamanho-fonte-l);
   font-weight: bold;
   line-height: 24px;
+  width: 110px;
 `;
 
 const PaginaCarrinho = observer(() => {
@@ -271,7 +273,13 @@ const PaginaCarrinho = observer(() => {
                 />
                 <div style={{ flex: 1 }}>
                   <h3>{item.sabor}</h3>
-                  <p>R$ {item.preco.toFixed(2).replace(".", ",")} cada</p>
+                  <p>
+                    {item.preco.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}{" "}
+                    cada
+                  </p>
                 </div>
                 <ContainerQuantidadePreco>
                   <ControleQuantidade
@@ -292,10 +300,11 @@ const PaginaCarrinho = observer(() => {
                     onClick={() => removerItemDoCarrinho(item.id)}
                   />
                   <PrecoContainerQuantidade>
-                    R${" "}
-                    {(item.preco * item.quantidade)
-                      .toFixed(2)
-                      .replace(".", ",")}
+                    {" "}
+                    {(item.preco * item.quantidade).toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
                   </PrecoContainerQuantidade>
                 </ContainerQuantidadePreco>
               </PizzasNoCarrinho>
@@ -340,10 +349,10 @@ const PaginaCarrinho = observer(() => {
               >
                 <strong>Total:</strong>
                 <strong>
-                  R${" "}
-                  {carrinhoStore.totalPrecoDoCarrinho
-                    .toFixed(2)
-                    .replace(".", ",")}
+                  {carrinhoStore.totalPrecoDoCarrinho.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                  })}
                 </strong>
               </div>
             </CardResumoPedido>

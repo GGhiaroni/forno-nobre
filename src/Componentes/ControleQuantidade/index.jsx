@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
   gap: 8px;
+  align-items: center;
 `;
 
 const Botao = styled.button`
