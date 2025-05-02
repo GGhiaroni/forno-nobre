@@ -25,6 +25,18 @@ class CarrinhoStore {
     this.itensNoCarrinho = [];
   }
 
+  incrementarQuantidade(id) {
+    const item = this.itensNoCarrinho.find((item) => item.id === id);
+    if (item) item.quantidade += 1;
+  }
+
+  decrementarQuantidade(id) {
+    const item = this.itensNoCarrinho.find((item) => item.id === id);
+    if (item && item.quantidade > 1) {
+      item.quantidade -= 1;
+    }
+  }
+
   get totalItensNoCarrinho() {
     return this.itensNoCarrinho.reduce((acc, item) => acc + item.quantidade, 0);
   }

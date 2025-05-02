@@ -198,7 +198,8 @@ const CardEsquerdoResumo = styled.div`
 
 const ContainerQuantidadePreco = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 25px;
+  justify-content: center;
 `;
 
 const PrecoContainerQuantidade = styled.span`
