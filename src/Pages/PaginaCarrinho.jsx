@@ -238,6 +238,11 @@ const InputCupomDesconto = styled.input`
   ::placeholder {
     color: #e2e8f0;
   }
+
+  &:focus {
+    border: 1px solid var(--cor-primaria);
+    outline: none;
+  }
 `;
 
 const ButtonInputDesconto = styled.button`
@@ -246,9 +251,25 @@ const ButtonInputDesconto = styled.button`
   color: var(--cor-branca);
   font-weight: bold;
   border-radius: 0 8px 8px 0;
-  font-size: 1.2rem;
-  padding: 1.2rem;
+  font-size: 1.1rem;
+  padding: 1rem;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--cor-hover);
+  }
 `;
+
+const ContainerSubtotalTaxa = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ContainerSubtotal = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Subtotal = styled.span``;
 
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
@@ -260,6 +281,9 @@ const PaginaCarrinho = observer(() => {
   const removerItemDoCarrinho = (id) => {
     carrinhoStore.removerDoCarrinho(id);
   };
+
+  const valorTaxa = carrinhoStore.totalPrecoDoCarrinho * 0.05;
+  const totalComTaxa = carrinhoStore.totalPrecoDoCarrinho + valorTaxa;
 
   return (
     <ContainerPrincipal>
@@ -372,6 +396,18 @@ const PaginaCarrinho = observer(() => {
                 <InputCupomDesconto placeholder="Digite seu cupom" />
                 <ButtonInputDesconto>Aplicar</ButtonInputDesconto>
               </ContainerInputCupomBotao>
+              <ContainerSubtotalTaxa>
+                <ContainerSubtotal>
+                  <Subtotal>Subtotal</Subtotal>
+                  <Subtotal>
+                    {formatarPreco(carrinhoStore.totalPrecoDoCarrinho)}
+                  </Subtotal>
+                </ContainerSubtotal>
+                <ContainerSubtotal>
+                  <Subtotal>Taxa de Entrega</Subtotal>
+                  <Subtotal>{formatarPreco(valorTaxa)}</Subtotal>
+                </ContainerSubtotal>
+              </ContainerSubtotalTaxa>
               <div
                 style={{
                   display: "flex",
@@ -380,9 +416,7 @@ const PaginaCarrinho = observer(() => {
                 }}
               >
                 <strong>Total:</strong>
-                <strong>
-                  {formatarPreco(carrinhoStore.totalPrecoDoCarrinho)}
-                </strong>
+                <strong>{formatarPreco(totalComTaxa)}</strong>
               </div>
             </CardResumoPedido>
             <BtnProsseguirCheckout>
