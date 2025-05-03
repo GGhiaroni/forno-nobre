@@ -215,9 +215,39 @@ const PrecoContainerQuantidade = styled.span`
 `;
 
 const LinhaCinza = styled.div`
-  height: 1px;
+  height: 1.2px;
   background-color: var(--cor-cinza-claro-extra);
   margin: 1rem 0;
+  margin-bottom: 2rem;
+`;
+
+const ContainerInputCupomBotao = styled.div`
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+`;
+
+const InputCupomDesconto = styled.input`
+  border: 1px solid var(--cor-cinza-claro-extra);
+  padding: 1rem 2rem 1rem 1rem;
+  border-radius: 8px 0 0 8px;
+  font-family: "Poppins";
+  font-size: 1rem;
+  color: var(--cor-cinza-medio);
+
+  ::placeholder {
+    color: #e2e8f0;
+  }
+`;
+
+const ButtonInputDesconto = styled.button`
+  background-color: var(--cor-primaria);
+  border: none;
+  color: var(--cor-branca);
+  font-weight: bold;
+  border-radius: 0 8px 8px 0;
+  font-size: 1.2rem;
+  padding: 1.2rem;
 `;
 
 const PaginaCarrinho = observer(() => {
@@ -313,7 +343,7 @@ const PaginaCarrinho = observer(() => {
           <ContainerResumoPedido>
             <CardResumoPedido>
               <H3ResumoPedido>Resumo do pedido</H3ResumoPedido>
-              <div style={{ marginBottom: "1rem" }}>
+              <div>
                 {carrinhoStore.itensNoCarrinho.map((item) => (
                   <div
                     key={item.id}
@@ -334,10 +364,14 @@ const PaginaCarrinho = observer(() => {
                     </SpanPrecoItemNoCarrinho>
                   </div>
                 ))}
-                <LinhaCinza></LinhaCinza>
+                <LinhaCinza style={{ marginTop: "2rem" }}></LinhaCinza>
                 <LinhaCinza></LinhaCinza>
               </div>
-              <hr />
+              <span style={{ fontWeight: "bold" }}>Cupom de desconto</span>
+              <ContainerInputCupomBotao>
+                <InputCupomDesconto placeholder="Digite seu cupom" />
+                <ButtonInputDesconto>Aplicar</ButtonInputDesconto>
+              </ContainerInputCupomBotao>
               <div
                 style={{
                   display: "flex",
