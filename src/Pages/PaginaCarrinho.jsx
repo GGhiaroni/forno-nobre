@@ -128,7 +128,7 @@ const Btn = styled.button`
 const DivEstilizadaCarrinhoComItens = styled.div`
   display: flex;
   gap: 2rem;
-  border: 1px solid var(--cinza-claro);
+  border: 1px solid var(--cinza-claro-extra);
   border-radius: 5px;
 `;
 
@@ -140,16 +140,18 @@ const PizzasNoCarrinho = styled.div`
   margin-top: 1rem;
   display: flex;
   padding: 1.5rem;
-  border: 1px solid var(--cor-cinza-claro);
+  border: 1px solid var(--cor-cinza-claro-extra);
   border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
 const CardResumoPedido = styled.div`
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--cor-cinza-claro);
+  border: 1px solid var(--cor-cinza-claro-extra);
   padding: 1.5rem;
   border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 `;
 
 const H3ResumoPedido = styled.div`
@@ -210,6 +212,12 @@ const PrecoContainerQuantidade = styled.span`
   font-weight: bold;
   line-height: 24px;
   width: 110px;
+`;
+
+const LinhaCinza = styled.div`
+  height: 1px;
+  background-color: var(--cor-cinza-claro-extra);
+  margin: 1rem 0;
 `;
 
 const PaginaCarrinho = observer(() => {
@@ -326,6 +334,8 @@ const PaginaCarrinho = observer(() => {
                     </SpanPrecoItemNoCarrinho>
                   </div>
                 ))}
+                <LinhaCinza></LinhaCinza>
+                <LinhaCinza></LinhaCinza>
               </div>
               <hr />
               <div
