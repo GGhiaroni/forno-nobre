@@ -415,7 +415,6 @@ const PaginaCarrinho = observer(() => {
               </PizzasNoCarrinho>
             ))}
           </CardEsquerdoResumo>
-
           <ContainerResumoPedido>
             <CardResumoPedido>
               <H3ResumoPedido>Resumo do pedido</H3ResumoPedido>
