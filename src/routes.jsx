@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
+import Checkout from "./Pages/Checkout";
 import Home from "./Pages/Home";
 import PaginaCarrinho from "./Pages/PaginaCarrinho";
 import Pizza from "./Pages/Pizza";
@@ -21,6 +22,7 @@ function AppRoutes() {
               element={<PizzasPorCategoria />}
             />
             <Route path="/carrinho" element={<PaginaCarrinho />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </main>
         <Footer />

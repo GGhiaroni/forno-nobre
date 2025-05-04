@@ -504,7 +504,12 @@ const PaginaCarrinho = observer(() => {
               </div>
             </CardResumoPedido>
             <BtnProsseguirCheckout>
-              Prosseguir para o pagamento
+              <Link
+                to="/checkout"
+                style={{ textDecoration: "none", color: "var(--cor-branca)" }}
+              >
+                Prosseguir para o pagamento
+              </Link>
             </BtnProsseguirCheckout>
           </ContainerResumoPedido>
         </DivEstilizadaCarrinhoComItens>
