@@ -260,8 +260,10 @@ const ButtonInputDesconto = styled.button`
 `;
 
 const ContainerSubtotalTaxa = styled.div`
+  margin: 1rem 0;
   display: flex;
   flex-direction: column;
+  gap: 15px;
 `;
 
 const ContainerSubtotal = styled.div`
@@ -269,7 +271,14 @@ const ContainerSubtotal = styled.div`
   justify-content: space-between;
 `;
 
-const Subtotal = styled.span``;
+const Subtotal = styled.span`
+  color: var(--cor-cinza-medio);
+`;
+
+const Total = styled.span`
+  font-size: var(--tamanho-fonte-l);
+  font-weight: bold;
+`;
 
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
@@ -408,6 +417,7 @@ const PaginaCarrinho = observer(() => {
                   <Subtotal>{formatarPreco(valorTaxa)}</Subtotal>
                 </ContainerSubtotal>
               </ContainerSubtotalTaxa>
+              <LinhaCinza style={{ marginBottom: ".5rem" }}></LinhaCinza>
               <div
                 style={{
                   display: "flex",
@@ -415,8 +425,8 @@ const PaginaCarrinho = observer(() => {
                   marginTop: "1rem",
                 }}
               >
-                <strong>Total:</strong>
-                <strong>{formatarPreco(totalComTaxa)}</strong>
+                <Total>Total:</Total>
+                <Total>{formatarPreco(totalComTaxa)}</Total>
               </div>
             </CardResumoPedido>
             <BtnProsseguirCheckout>
