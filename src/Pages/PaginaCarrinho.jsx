@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaTimes, FaTrash } from "react-icons/fa";
 import { IoCartSharp } from "react-icons/io5";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -297,7 +297,7 @@ const PaginaCarrinho = observer(() => {
   };
 
   const valorTaxaEntregaOriginal = carrinhoStore.totalPrecoDoCarrinho * 0.05;
-  const desconto = cupomAplicado ? cupomAplicado.valor : 0;
+  let desconto = cupomAplicado ? cupomAplicado.valor : 0;
   const taxaEntregaFinal =
     cupomAplicado?.codigo === "FRETEGRATIS" ? 0 : valorTaxaEntregaOriginal;
   const totalComDescontoETaxa = Math.max(
@@ -329,6 +329,12 @@ const PaginaCarrinho = observer(() => {
     toast.success(`Cupom ${cupomEncontrado.codigo} aplicado com sucesso!`, {
       duration: 1500,
     });
+  };
+
+  const removerCupom = () => {
+    setCupomAplicado(null);
+    setCodigoCupom("");
+    desconto = 0;
   };
 
   return (
@@ -454,15 +460,15 @@ const PaginaCarrinho = observer(() => {
                   <span style={{ color: "var(--cor-primaria)" }}>
                     {cupomAplicado.codigo}
                   </span>
-                  " aplicado
-                  {cupomAplicado.codigo !== "FRETEGRATIS" && (
-                    <>
-                      :{" "}
-                      <span style={{ color: "#00C205" }}>
-                        - {formatarPreco(cupomAplicado.valor)}
-                      </span>
-                    </>
-                  )}
+                  " aplicado.
+                  <FaTimes
+                    style={{
+                      cursor: "pointer",
+                      color: "var(--cor-primaria)",
+                      marginLeft: "10px",
+                    }}
+                    onClick={() => removerCupom()}
+                  />
                 </p>
               )}
               <ContainerSubtotalTaxa>
@@ -481,7 +487,7 @@ const PaginaCarrinho = observer(() => {
                 <ContainerSubtotal>
                   <Subtotal style={{ color: "#00C205" }}>Desconto</Subtotal>
                   <Subtotal style={{ color: "#00C205" }}>
-                    {formatarPreco(desconto)}
+                    - {formatarPreco(desconto)}
                   </Subtotal>
                 </ContainerSubtotal>
               )}
