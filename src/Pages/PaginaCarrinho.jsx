@@ -297,9 +297,20 @@ const PaginaCarrinho = observer(() => {
   };
 
   const valorTaxa = carrinhoStore.totalPrecoDoCarrinho * 0.05;
-  const totalComTaxa = carrinhoStore.totalPrecoDoCarrinho + valorTaxa;
+  const desconto = cupomAplicado ? cupomAplicado.valor : 0;
+  const totalComDescontoETaxa = Math.max(
+    carrinhoStore.totalPrecoDoCarrinho + valorTaxa - desconto,
+    0
+  );
 
   const aplicarCupom = (codigoInserido) => {
+    if (cupomAplicado) {
+      toast.error("Você já aplicou um cupom.", {
+        duration: 1200,
+      });
+      return;
+    }
+
     const cupomEncontrado = cupons.find(
       (cupom) => cupom.codigo.toLowerCase() === codigoInserido.toLowerCase()
     );
@@ -310,6 +321,12 @@ const PaginaCarrinho = observer(() => {
       });
       return;
     }
+
+    setCupomAplicado(cupomEncontrado);
+
+    toast.success(`Cupom ${cupomEncontrado.codigo} aplicado com sucesso!`, {
+      duration: 1500,
+    });
   };
 
   return (
@@ -429,6 +446,20 @@ const PaginaCarrinho = observer(() => {
                   Aplicar
                 </ButtonInputDesconto>
               </ContainerInputCupomBotao>
+              {cupomAplicado && (
+                <p style={{ marginTop: "0.5rem" }}>
+                  Cupom "
+                  <span
+                    style={{ color: "var(--cor-primaria)", fontWeight: "bold" }}
+                  >
+                    {cupomAplicado.codigo}
+                  </span>
+                  " aplicado:{" "}
+                  <span style={{ color: "#019506", fontWeight: "bold" }}>
+                    - {formatarPreco(cupomAplicado.valor)}
+                  </span>
+                </p>
+              )}
               <ContainerSubtotalTaxa>
                 <ContainerSubtotal>
                   <Subtotal>Subtotal</Subtotal>
@@ -450,7 +481,7 @@ const PaginaCarrinho = observer(() => {
                 }}
               >
                 <Total>Total:</Total>
-                <Total>{formatarPreco(totalComTaxa)}</Total>
+                <Total>{formatarPreco(totalComDescontoETaxa)}</Total>
               </div>
             </CardResumoPedido>
             <BtnProsseguirCheckout>

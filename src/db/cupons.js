@@ -4,8 +4,8 @@ const cupons = [
     valor: 10,
   },
   {
-    codigo: "FORNO5",
-    valor: 5,
+    codigo: "FORNO10",
+    valor: 10,
   },
   {
     codigo: "FRETEGRATIS",
