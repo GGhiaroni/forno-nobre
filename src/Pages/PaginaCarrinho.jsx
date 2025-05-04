@@ -454,7 +454,7 @@ const PaginaCarrinho = observer(() => {
                   <span style={{ color: "var(--cor-primaria)" }}>
                     {cupomAplicado.codigo}
                   </span>
-                  " aplicado.
+                  " aplicado
                   {cupomAplicado.codigo !== "FRETEGRATIS" && (
                     <>
                       :{" "}
@@ -477,7 +477,7 @@ const PaginaCarrinho = observer(() => {
                   <Subtotal>{formatarPreco(taxaEntregaFinal)}</Subtotal>
                 </ContainerSubtotal>
               </ContainerSubtotalTaxa>
-              {cupomAplicado && (
+              {cupomAplicado && cupomAplicado.codigo !== "FRETEGRATIS" && (
                 <ContainerSubtotal>
                   <Subtotal style={{ color: "#00C205" }}>Desconto</Subtotal>
                   <Subtotal style={{ color: "#00C205" }}>
