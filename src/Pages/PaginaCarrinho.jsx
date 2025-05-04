@@ -1,11 +1,14 @@
 import { observer } from "mobx-react-lite";
+import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import { IoCartSharp } from "react-icons/io5";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import styled from "styled-components";
 import imagemCarrinhoVazio from "../../src/assets/carrinho-vazio.png";
 import ControleQuantidade from "../Componentes/ControleQuantidade";
+import cupons from "../db/cupons";
 import { useStoreContext } from "../mobx/StoreContext";
 import { formatarPreco } from "../utils/formatarPreco";
 
@@ -282,6 +285,8 @@ const Total = styled.span`
 
 const PaginaCarrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
+  const [cupomAplicado, setCupomAplicado] = useState(null);
+  const [codigoCupom, setCodigoCupom] = useState("");
 
   const limparCarrinho = () => {
     carrinhoStore.limparCarrinho();
@@ -293,6 +298,19 @@ const PaginaCarrinho = observer(() => {
 
   const valorTaxa = carrinhoStore.totalPrecoDoCarrinho * 0.05;
   const totalComTaxa = carrinhoStore.totalPrecoDoCarrinho + valorTaxa;
+
+  const aplicarCupom = (codigoInserido) => {
+    const cupomEncontrado = cupons.find(
+      (cupom) => cupom.codigo.toLowerCase() === codigoInserido.toLowerCase()
+    );
+
+    if (!cupomEncontrado) {
+      toast.error("Cupom não encontrado.", {
+        duration: 1200,
+      });
+      return;
+    }
+  };
 
   return (
     <ContainerPrincipal>
@@ -402,8 +420,14 @@ const PaginaCarrinho = observer(() => {
               </div>
               <span style={{ fontWeight: "bold" }}>Cupom de desconto</span>
               <ContainerInputCupomBotao>
-                <InputCupomDesconto placeholder="Digite seu cupom" />
-                <ButtonInputDesconto>Aplicar</ButtonInputDesconto>
+                <InputCupomDesconto
+                  placeholder="Digite seu cupom"
+                  value={codigoCupom}
+                  onChange={(e) => setCodigoCupom(e.target.value)}
+                />
+                <ButtonInputDesconto onClick={() => aplicarCupom(codigoCupom)}>
+                  Aplicar
+                </ButtonInputDesconto>
               </ContainerInputCupomBotao>
               <ContainerSubtotalTaxa>
                 <ContainerSubtotal>
