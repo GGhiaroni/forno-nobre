@@ -296,10 +296,12 @@ const PaginaCarrinho = observer(() => {
     carrinhoStore.removerDoCarrinho(id);
   };
 
-  const valorTaxa = carrinhoStore.totalPrecoDoCarrinho * 0.05;
+  const valorTaxaEntregaOriginal = carrinhoStore.totalPrecoDoCarrinho * 0.05;
   const desconto = cupomAplicado ? cupomAplicado.valor : 0;
+  const taxaEntregaFinal =
+    cupomAplicado?.codigo === "FRETEGRATIS" ? 0 : valorTaxaEntregaOriginal;
   const totalComDescontoETaxa = Math.max(
-    carrinhoStore.totalPrecoDoCarrinho + valorTaxa - desconto,
+    carrinhoStore.totalPrecoDoCarrinho + taxaEntregaFinal - desconto,
     0
   );
 
@@ -449,15 +451,18 @@ const PaginaCarrinho = observer(() => {
               {cupomAplicado && (
                 <p style={{ marginTop: "0.5rem" }}>
                   Cupom "
-                  <span
-                    style={{ color: "var(--cor-primaria)", fontWeight: "bold" }}
-                  >
+                  <span style={{ color: "var(--cor-primaria)" }}>
                     {cupomAplicado.codigo}
                   </span>
-                  " aplicado:{" "}
-                  <span style={{ color: "#019506", fontWeight: "bold" }}>
-                    - {formatarPreco(cupomAplicado.valor)}
-                  </span>
+                  " aplicado.
+                  {cupomAplicado.codigo !== "FRETEGRATIS" && (
+                    <>
+                      :{" "}
+                      <span style={{ color: "#00C205" }}>
+                        - {formatarPreco(cupomAplicado.valor)}
+                      </span>
+                    </>
+                  )}
                 </p>
               )}
               <ContainerSubtotalTaxa>
@@ -469,9 +474,17 @@ const PaginaCarrinho = observer(() => {
                 </ContainerSubtotal>
                 <ContainerSubtotal>
                   <Subtotal>Taxa de Entrega</Subtotal>
-                  <Subtotal>{formatarPreco(valorTaxa)}</Subtotal>
+                  <Subtotal>{formatarPreco(taxaEntregaFinal)}</Subtotal>
                 </ContainerSubtotal>
               </ContainerSubtotalTaxa>
+              {cupomAplicado && (
+                <ContainerSubtotal>
+                  <Subtotal style={{ color: "#00C205" }}>Desconto</Subtotal>
+                  <Subtotal style={{ color: "#00C205" }}>
+                    {formatarPreco(desconto)}
+                  </Subtotal>
+                </ContainerSubtotal>
+              )}
               <LinhaCinza style={{ marginBottom: ".5rem" }}></LinhaCinza>
               <div
                 style={{
