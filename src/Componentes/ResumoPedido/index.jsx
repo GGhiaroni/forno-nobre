@@ -1,17 +1,9 @@
-import { useState } from "react";
+import { FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "sonner";
 import styled from "styled-components";
 import cupons from "../../db/cupons";
-import { useStoreContext } from "../../mobx/StoreContext";
 import { formatarPreco } from "../../utils/formatarPreco";
-
-const ContainerPrincipal = styled.div`
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  margin-top: 12rem;
-`;
 
 const CardResumoPedido = styled.div`
   display: flex;
@@ -129,11 +121,13 @@ const Total = styled.span`
   font-weight: bold;
 `;
 
-const ResumoPedido = () => {
-  const { carrinhoStore } = useStoreContext();
-  const [cupomAplicado, setCupomAplicado] = useState(null);
-  const [codigoCupom, setCodigoCupom] = useState("");
-
+const ResumoPedido = ({
+  carrinhoStore,
+  cupomAplicado,
+  setCupomAplicado,
+  codigoCupom,
+  setCodigoCupom,
+}) => {
   const valorTaxaEntregaOriginal = carrinhoStore.totalPrecoDoCarrinho * 0.05;
   let desconto = cupomAplicado ? cupomAplicado.valor : 0;
   const taxaEntregaFinal =
@@ -175,104 +169,102 @@ const ResumoPedido = () => {
     desconto = 0;
   };
   return (
-    <ContainerPrincipal>
-      <ContainerResumoPedido>
-        <CardResumoPedido>
-          <H3ResumoPedido>Resumo do pedido</H3ResumoPedido>
-          <div>
-            {carrinhoStore.itensNoCarrinho.map((item) => (
-              <div
-                key={item.id}
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                <div style={{ display: "flex", gap: "10px" }}>
-                  <SpanQuantidadePizzaNoCarrinho>
-                    {item.quantidade}
-                  </SpanQuantidadePizzaNoCarrinho>
-                  <SpanQuantidadePizzaNoCarrinho
-                    style={{ color: "var(--cor-cinza-escuro)" }}
-                  >
-                    {item.sabor}
-                  </SpanQuantidadePizzaNoCarrinho>
-                </div>
-                <SpanPrecoItemNoCarrinho>
-                  {formatarPreco(item.preco * item.quantidade)}
-                </SpanPrecoItemNoCarrinho>
+    <ContainerResumoPedido>
+      <CardResumoPedido>
+        <H3ResumoPedido>Resumo do pedido</H3ResumoPedido>
+        <div>
+          {carrinhoStore.itensNoCarrinho.map((item) => (
+            <div
+              key={item.id}
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
+              <div style={{ display: "flex", gap: "10px" }}>
+                <SpanQuantidadePizzaNoCarrinho>
+                  {item.quantidade}
+                </SpanQuantidadePizzaNoCarrinho>
+                <SpanQuantidadePizzaNoCarrinho
+                  style={{ color: "var(--cor-cinza-escuro)" }}
+                >
+                  {item.sabor}
+                </SpanQuantidadePizzaNoCarrinho>
               </div>
-            ))}
-            <LinhaCinza style={{ marginTop: "2rem" }}></LinhaCinza>
-            <LinhaCinza></LinhaCinza>
-          </div>
-          <span style={{ fontWeight: "bold" }}>Cupom de desconto</span>
-          <ContainerInputCupomBotao>
-            <InputCupomDesconto
-              placeholder="Digite seu cupom"
-              value={codigoCupom}
-              onChange={(e) => setCodigoCupom(e.target.value)}
+              <SpanPrecoItemNoCarrinho>
+                {formatarPreco(item.preco * item.quantidade)}
+              </SpanPrecoItemNoCarrinho>
+            </div>
+          ))}
+          <LinhaCinza style={{ marginTop: "2rem" }}></LinhaCinza>
+          <LinhaCinza></LinhaCinza>
+        </div>
+        <span style={{ fontWeight: "bold" }}>Cupom de desconto</span>
+        <ContainerInputCupomBotao>
+          <InputCupomDesconto
+            placeholder="Digite seu cupom"
+            value={codigoCupom}
+            onChange={(e) => setCodigoCupom(e.target.value)}
+          />
+          <ButtonInputDesconto onClick={() => aplicarCupom(codigoCupom)}>
+            Aplicar
+          </ButtonInputDesconto>
+        </ContainerInputCupomBotao>
+        {cupomAplicado && (
+          <p style={{ marginTop: "0.5rem" }}>
+            Cupom "
+            <span style={{ color: "var(--cor-primaria)" }}>
+              {cupomAplicado.codigo}
+            </span>
+            " aplicado.
+            <FaTimes
+              style={{
+                cursor: "pointer",
+                color: "var(--cor-primaria)",
+                marginLeft: "10px",
+              }}
+              onClick={() => removerCupom()}
             />
-            <ButtonInputDesconto onClick={() => aplicarCupom(codigoCupom)}>
-              Aplicar
-            </ButtonInputDesconto>
-          </ContainerInputCupomBotao>
-          {cupomAplicado && (
-            <p style={{ marginTop: "0.5rem" }}>
-              Cupom "
-              <span style={{ color: "var(--cor-primaria)" }}>
-                {cupomAplicado.codigo}
-              </span>
-              " aplicado.
-              <FaTimes
-                style={{
-                  cursor: "pointer",
-                  color: "var(--cor-primaria)",
-                  marginLeft: "10px",
-                }}
-                onClick={() => removerCupom()}
-              />
-            </p>
-          )}
-          <ContainerSubtotalTaxa>
-            <ContainerSubtotal>
-              <Subtotal>Subtotal</Subtotal>
-              <Subtotal>
-                {formatarPreco(carrinhoStore.totalPrecoDoCarrinho)}
-              </Subtotal>
-            </ContainerSubtotal>
-            <ContainerSubtotal>
-              <Subtotal>Taxa de Entrega</Subtotal>
-              <Subtotal>{formatarPreco(taxaEntregaFinal)}</Subtotal>
-            </ContainerSubtotal>
-          </ContainerSubtotalTaxa>
-          {cupomAplicado && cupomAplicado.codigo !== "FRETEGRATIS" && (
-            <ContainerSubtotal>
-              <Subtotal style={{ color: "#00C205" }}>Desconto</Subtotal>
-              <Subtotal style={{ color: "#00C205" }}>
-                - {formatarPreco(desconto)}
-              </Subtotal>
-            </ContainerSubtotal>
-          )}
-          <LinhaCinza style={{ marginBottom: ".5rem" }}></LinhaCinza>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "1rem",
-            }}
-          >
-            <Total>Total:</Total>
-            <Total>{formatarPreco(totalComDescontoETaxa)}</Total>
-          </div>
-        </CardResumoPedido>
-        <BtnProsseguirCheckout>
-          <Link
-            to="/checkout"
-            style={{ textDecoration: "none", color: "var(--cor-branca)" }}
-          >
-            Prosseguir para o pagamento
-          </Link>
-        </BtnProsseguirCheckout>
-      </ContainerResumoPedido>
-    </ContainerPrincipal>
+          </p>
+        )}
+        <ContainerSubtotalTaxa>
+          <ContainerSubtotal>
+            <Subtotal>Subtotal</Subtotal>
+            <Subtotal>
+              {formatarPreco(carrinhoStore.totalPrecoDoCarrinho)}
+            </Subtotal>
+          </ContainerSubtotal>
+          <ContainerSubtotal>
+            <Subtotal>Taxa de Entrega</Subtotal>
+            <Subtotal>{formatarPreco(taxaEntregaFinal)}</Subtotal>
+          </ContainerSubtotal>
+        </ContainerSubtotalTaxa>
+        {cupomAplicado && cupomAplicado.codigo !== "FRETEGRATIS" && (
+          <ContainerSubtotal>
+            <Subtotal style={{ color: "#00C205" }}>Desconto</Subtotal>
+            <Subtotal style={{ color: "#00C205" }}>
+              - {formatarPreco(desconto)}
+            </Subtotal>
+          </ContainerSubtotal>
+        )}
+        <LinhaCinza style={{ marginBottom: ".5rem" }}></LinhaCinza>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: "1rem",
+          }}
+        >
+          <Total>Total:</Total>
+          <Total>{formatarPreco(totalComDescontoETaxa)}</Total>
+        </div>
+      </CardResumoPedido>
+      <BtnProsseguirCheckout>
+        <Link
+          to="/checkout"
+          style={{ textDecoration: "none", color: "var(--cor-branca)" }}
+        >
+          Prosseguir para o pagamento
+        </Link>
+      </BtnProsseguirCheckout>
+    </ContainerResumoPedido>
   );
 };
 
