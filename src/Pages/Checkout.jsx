@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { FaShoppingBag } from "react-icons/fa";
 import { TiArrowLeft } from "react-icons/ti";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import ResumoPedido from "../Componentes/ResumoPedido";
 import { useStoreContext } from "../mobx/StoreContext";
@@ -61,6 +62,13 @@ const ContainerIconeETexto = styled.div`
     }
   }
 `;
+
+const LinkEstilizado = styled(Link)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+`;
+
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -72,8 +80,10 @@ const Checkout = observer(() => {
           <H3Estilizado>Finalizar pedido</H3Estilizado>
         </ContainerIconeETexto>
         <ContainerIconeETexto>
-          <IconeSeta />
-          <TextoIconeSeta>Voltar para o carrinho</TextoIconeSeta>
+          <LinkEstilizado to="/carrinho">
+            <IconeSeta />
+            <TextoIconeSeta>Voltar para o carrinho</TextoIconeSeta>
+          </LinkEstilizado>
         </ContainerIconeETexto>
       </ContainerTopo>
       <ResumoPedido carrinhoStore={carrinhoStore} />
