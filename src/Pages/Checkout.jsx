@@ -161,8 +161,10 @@ const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
   const [cep, setCep] = useState("");
-  const [endereco, setEndereco] = useState("");
+  const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
+  const [rua, setRua] = useState("");
+  const [numero, setNumero] = useState("");
 
   return (
     <ContainerPrincipal>
@@ -198,44 +200,71 @@ const Checkout = observer(() => {
             </ContainerLabelInput>
           </LinhaDupla>
 
-          <ContainerLabelInput>
-            <Label htmlFor="cep">CEP</Label>
-            <input
-              id="cep"
-              type="text"
-              placeholder="00000-000"
-              value={cep}
-              onChange={(e) => setCep(e.target.value)}
-              onBlur={async () => {
-                const dadosCep = await buscarCep(cep);
-                if (dadosCep) {
-                  setEndereco(dadosCep.logradouro || "");
-                  setCidade(dadosCep.localidade || "");
-                }
-              }}
-            />
-          </ContainerLabelInput>
-
-          <ContainerLabelInput>
-            <Label htmlFor="endereco">Endereço</Label>
-            <input
-              id="endereco"
-              type="text"
-              placeholder="Rua, número, bairro"
-              value={endereco}
-              onChange={(e) => setEndereco(e.target.value)}
-            />
-          </ContainerLabelInput>
-
           <LinhaDupla>
+            <ContainerLabelInput>
+              <Label htmlFor="cep">CEP</Label>
+              <input
+                id="cep"
+                type="text"
+                placeholder="00000-000"
+                value={cep}
+                onChange={(e) => setCep(e.target.value)}
+                onBlur={async () => {
+                  const dadosCep = await buscarCep(cep);
+                  if (dadosCep) {
+                    setRua(dadosCep.logradouro || "");
+                    setCidade(dadosCep.localidade || "");
+                    setBairro(dadosCep.bairro || "");
+                  }
+                }}
+              />
+            </ContainerLabelInput>
+
             <ContainerLabelInput>
               <Label htmlFor="cidade">Cidade</Label>
               <input
                 id="cidade"
                 type="text"
-                placeholder="Sua cidade"
+                placeholder="Cidade"
                 value={cidade}
                 onChange={(e) => setCidade(e.target.value)}
+              />
+            </ContainerLabelInput>
+          </LinhaDupla>
+
+          <LinhaDupla>
+            <ContainerLabelInput>
+              <Label htmlFor="rua">Rua</Label>
+              <input
+                id="rua"
+                type="text"
+                placeholder="Rua"
+                value={rua}
+                onChange={(e) => setRua(e.target.value)}
+              />
+            </ContainerLabelInput>
+
+            <ContainerLabelInput>
+              <Label htmlFor="endereco">Bairro</Label>
+              <input
+                id="bairro"
+                type="text"
+                placeholder="Bairro"
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+              />
+            </ContainerLabelInput>
+          </LinhaDupla>
+
+          <LinhaDupla>
+            <ContainerLabelInput>
+              <Label htmlFor="numero">Número</Label>
+              <input
+                id="numero"
+                type="text"
+                placeholder="Número"
+                value={numero}
+                onChange={(e) => setNumero(e.target.value)}
               />
             </ContainerLabelInput>
             <ContainerLabelInput>
