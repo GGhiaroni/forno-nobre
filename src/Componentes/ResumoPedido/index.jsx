@@ -256,14 +256,14 @@ const ResumoPedido = ({
           <Total>{formatarPreco(totalComDescontoETaxa)}</Total>
         </div>
       </CardResumoPedido>
-      <BtnProsseguirCheckout>
-        <Link
-          to="/checkout"
-          style={{ textDecoration: "none", color: "var(--cor-branca)" }}
-        >
+      <Link
+        to="/checkout"
+        style={{ textDecoration: "none", color: "var(--cor-branca)" }}
+      >
+        <BtnProsseguirCheckout>
           Prosseguir para o pagamento
-        </Link>
-      </BtnProsseguirCheckout>
+        </BtnProsseguirCheckout>
+      </Link>
     </ContainerResumoPedido>
   );
 };

@@ -69,6 +69,92 @@ const LinkEstilizado = styled(Link)`
   text-decoration: none;
 `;
 
+const GridCheckout = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  align-items: flex-start;
+
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr;
+  }
+`;
+
+const FormularioEntrega = styled.form`
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--cor-cinza-claro-extra);
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+  input {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .metodo-pagamento {
+    display: flex;
+    gap: 1rem;
+
+    button {
+      flex: 1;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      background: #f9f9f9;
+      cursor: pointer;
+      font-weight: 500;
+
+      &.ativo {
+        border-color: var(--cor-primaria);
+        background: #fff3f3;
+      }
+    }
+  }
+
+  .btn-finalizar {
+    padding: 1rem;
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+`;
+
+const Label = styled.label`
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  display: inline-block;
+`;
+
+const ContainerLabelInput = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const LinhaDupla = styled.div`
+  display: flex;
+  gap: 1rem;
+
+  ${ContainerLabelInput} {
+    flex: 1;
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+`;
+
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -86,7 +172,63 @@ const Checkout = observer(() => {
           </LinkEstilizado>
         </ContainerIconeETexto>
       </ContainerTopo>
-      <ResumoPedido carrinhoStore={carrinhoStore} />
+
+      <GridCheckout>
+        <FormularioEntrega>
+          <ContainerLabelInput>
+            <Label htmlFor="nome">Nome completo</Label>
+            <input id="nome" type="text" placeholder="Seu nome completo" />
+          </ContainerLabelInput>
+
+          <LinhaDupla>
+            <ContainerLabelInput>
+              <Label htmlFor="email">Email</Label>
+              <input id="email" type="email" placeholder="seu@email.com" />
+            </ContainerLabelInput>
+
+            <ContainerLabelInput>
+              <Label htmlFor="telefone">Telefone</Label>
+              <input id="telefone" type="tel" placeholder="(00) 00000-0000" />
+            </ContainerLabelInput>
+          </LinhaDupla>
+
+          <ContainerLabelInput>
+            <Label htmlFor="cep">CEP</Label>
+            <input id="cep" type="text" placeholder="00000-000" />
+          </ContainerLabelInput>
+
+          <ContainerLabelInput>
+            <Label htmlFor="endereco">Endereço</Label>
+            <input
+              id="endereco"
+              type="text"
+              placeholder="Rua, número, complemento"
+            />
+          </ContainerLabelInput>
+
+          <ContainerLabelInput>
+            <Label htmlFor="cidade">Cidade</Label>
+            <input id="cidade" type="text" placeholder="Sua cidade" />
+          </ContainerLabelInput>
+
+          <ContainerLabelInput>
+            <Label>Método de pagamento</Label>
+            <div className="metodo-pagamento">
+              <button type="button" className="ativo">
+                Cartão de crédito
+              </button>
+              <button type="button">Cartão de débito</button>
+              <button type="button">Dinheiro</button>
+            </div>
+          </ContainerLabelInput>
+
+          <button type="submit" className="btn-finalizar">
+            Finalizar pedido
+          </button>
+        </FormularioEntrega>
+
+        <ResumoPedido carrinhoStore={carrinhoStore} />
+      </GridCheckout>
     </ContainerPrincipal>
   );
 });
