@@ -167,6 +167,8 @@ const LinhaDupla = styled.div`
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
   const [telefone, setTelefone] = useState("");
   const [cep, setCep] = useState("");
   const [bairro, setBairro] = useState("");
@@ -193,13 +195,29 @@ const Checkout = observer(() => {
         <FormularioEntrega>
           <ContainerLabelInput>
             <Label htmlFor="nome">Nome completo</Label>
-            <input id="nome" type="text" placeholder="Seu nome completo" />
+            <input
+              id="nome"
+              type="text"
+              placeholder="Seu nome completo"
+              value={nome}
+              onChange={(e) => {
+                setNome(e.target.value);
+              }}
+            />
           </ContainerLabelInput>
 
           <LinhaDupla>
             <ContainerLabelInput>
               <Label htmlFor="email">Email</Label>
-              <input id="email" type="email" placeholder="seu@email.com" />
+              <input
+                id="email"
+                type="email"
+                placeholder="seu@email.com"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </ContainerLabelInput>
 
             <ContainerLabelInput>
@@ -248,6 +266,7 @@ const Checkout = observer(() => {
                 placeholder="Cidade"
                 value={cidade}
                 onChange={(e) => setCidade(e.target.value)}
+                readOnly
               />
             </ContainerLabelInput>
           </LinhaDupla>
@@ -261,6 +280,7 @@ const Checkout = observer(() => {
                 placeholder="Rua"
                 value={rua}
                 onChange={(e) => setRua(e.target.value)}
+                readOnly
               />
             </ContainerLabelInput>
 
@@ -272,6 +292,7 @@ const Checkout = observer(() => {
                 placeholder="Bairro"
                 value={bairro}
                 onChange={(e) => setBairro(e.target.value)}
+                readOnly
               />
             </ContainerLabelInput>
           </LinhaDupla>
