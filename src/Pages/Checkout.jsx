@@ -7,6 +7,7 @@ import styled from "styled-components";
 import ResumoPedido from "../Componentes/ResumoPedido";
 import { useStoreContext } from "../mobx/StoreContext";
 import buscarCep from "../utils/buscarCep";
+import { formatarTelefone } from "../utils/formatarTelefone";
 
 const ContainerPrincipal = styled.div`
   width: 100%;
@@ -98,6 +99,11 @@ const FormularioEntrega = styled.form`
     border-radius: 8px;
     font-size: 0.9rem;
     font-family: "Poppins";
+
+    &:focus {
+      border: 1px solid var(--cor-primaria);
+      outline: none;
+    }
   }
 
   .metodo-pagamento {
@@ -160,6 +166,7 @@ const LinhaDupla = styled.div`
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
+  const [telefone, setTelefone] = useState("");
   const [cep, setCep] = useState("");
   const [bairro, setBairro] = useState("");
   const [cidade, setCidade] = useState("");
@@ -196,7 +203,16 @@ const Checkout = observer(() => {
 
             <ContainerLabelInput>
               <Label htmlFor="telefone">Telefone</Label>
-              <input id="telefone" type="tel" placeholder="(00) 00000-0000" />
+              <input
+                id="telefone"
+                type="tel"
+                placeholder="(00) 00000-0000"
+                value={telefone}
+                onChange={(e) => {
+                  const telefoneFormatado = formatarTelefone(e.target.value);
+                  setTelefone(telefoneFormatado);
+                }}
+              />
             </ContainerLabelInput>
           </LinhaDupla>
 
