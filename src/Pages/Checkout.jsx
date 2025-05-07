@@ -7,6 +7,7 @@ import styled from "styled-components";
 import ResumoPedido from "../Componentes/ResumoPedido";
 import { useStoreContext } from "../mobx/StoreContext";
 import buscarCep from "../utils/buscarCep";
+import { formatarCep } from "../utils/formatarCep";
 import { formatarTelefone } from "../utils/formatarTelefone";
 
 const ContainerPrincipal = styled.div`
@@ -224,7 +225,10 @@ const Checkout = observer(() => {
                 type="text"
                 placeholder="00000-000"
                 value={cep}
-                onChange={(e) => setCep(e.target.value)}
+                onChange={(e) => {
+                  const cepFormatado = formatarCep(e.target.value);
+                  setCep(cepFormatado);
+                }}
                 onBlur={async () => {
                   const dadosCep = await buscarCep(cep);
                   if (dadosCep) {
