@@ -36,6 +36,13 @@ const H3Estilizado = styled.h3`
   color: var(--cor-icone-carrinho);
 `;
 
+const H4Estilizado = styled.h4`
+  font-size: var(--tamanho-fonte-xl);
+  line-height: 36px;
+  font-weight: 600;
+  color: var(--cor-icone-carrinho);
+`;
+
 const IconeSeta = styled(TiArrowLeft)`
   font-size: 2rem;
   color: var(--cor-cinza-medio);
@@ -86,7 +93,7 @@ const GridCheckout = styled.div`
 
 const FormularioEntrega = styled.form`
   background-color: #fff;
-  padding: 2rem;
+  padding: 0 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--cor-cinza-claro-extra);
@@ -140,15 +147,27 @@ const FormularioEntrega = styled.form`
 `;
 
 const Label = styled.label`
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 0.2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.7rem;
   display: inline-block;
+  color: var(--cor-cinza-escuro);
+  margin-top: 1rem;
+
+  &.label_metodo-pagamento {
+    margin-bottom: 1rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
 `;
 
 const ContainerLabelInput = styled.div`
   display: flex;
   flex-direction: column;
+
+  &.metodos_pagamento {
+    margin-top: 0.5rem;
+  }
 `;
 
 const LinhaDupla = styled.div`
@@ -194,6 +213,7 @@ const Checkout = observer(() => {
       <GridCheckout>
         <FormularioEntrega>
           <ContainerLabelInput>
+            <H4Estilizado>Informações de entrega</H4Estilizado>
             <Label htmlFor="nome">Nome completo</Label>
             <input
               id="nome"
@@ -314,8 +334,10 @@ const Checkout = observer(() => {
             </ContainerLabelInput>
           </LinhaDupla>
 
-          <ContainerLabelInput>
-            <Label>Método de pagamento</Label>
+          <ContainerLabelInput className="metodos_pagamento">
+            <Label className="label_metodo-pagamento">
+              Método de pagamento
+            </Label>
             <div className="metodo-pagamento">
               <button type="button" className="ativo">
                 Cartão de crédito
