@@ -127,6 +127,7 @@ const ResumoPedido = ({
   setCupomAplicado,
   codigoCupom,
   setCodigoCupom,
+  exibirBotao = true,
 }) => {
   const valorTaxaEntregaOriginal = carrinhoStore.totalPrecoDoCarrinho * 0.05;
   let desconto = cupomAplicado ? cupomAplicado.valor : 0;
@@ -258,7 +259,11 @@ const ResumoPedido = ({
       </CardResumoPedido>
       <Link
         to="/checkout"
-        style={{ textDecoration: "none", color: "var(--cor-branca)" }}
+        style={{
+          textDecoration: "none",
+          color: "var(--cor-branca)",
+          display: exibirBotao ? "block" : "none",
+        }}
       >
         <BtnProsseguirCheckout>
           Prosseguir para o pagamento

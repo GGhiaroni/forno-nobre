@@ -215,6 +215,9 @@ const Checkout = observer(() => {
   const [numero, setNumero] = useState("");
   const [metodoPagamento, setMetodoPagamento] = useState("credito");
 
+  const [codigoCupom, setCodigoCupom] = useState("");
+  const [cupomAplicado, setCupomAplicado] = useState(null);
+
   return (
     <ContainerPrincipal>
       <ContainerTopo>
@@ -391,7 +394,14 @@ const Checkout = observer(() => {
           </button>
         </FormularioEntrega>
 
-        <ResumoPedido carrinhoStore={carrinhoStore} />
+        <ResumoPedido
+          carrinhoStore={carrinhoStore}
+          exibirBotao={false}
+          codigoCupom={codigoCupom}
+          setCodigoCupom={setCodigoCupom}
+          cupomAplicado={cupomAplicado}
+          setCupomAplicado={setCupomAplicado}
+        />
       </GridCheckout>
     </ContainerPrincipal>
   );
