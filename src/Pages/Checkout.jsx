@@ -1,6 +1,10 @@
 import { observer } from "mobx-react-lite";
 import { useState } from "react";
-import { FaShoppingBag } from "react-icons/fa";
+import {
+  FaMoneyBillWave,
+  FaRegCreditCard,
+  FaShoppingBag,
+} from "react-icons/fa";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -93,7 +97,7 @@ const GridCheckout = styled.div`
 
 const FormularioEntrega = styled.form`
   background-color: #fff;
-  padding: 0 2rem;
+  padding: 0 2rem 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid var(--cor-cinza-claro-extra);
@@ -123,13 +127,14 @@ const FormularioEntrega = styled.form`
       padding: 1rem;
       border-radius: 8px;
       border: 1px solid #ccc;
-      background: #f9f9f9;
+      background: #ffffff;
       cursor: pointer;
       font-weight: 500;
 
       &.ativo {
         border-color: var(--cor-primaria);
-        background: #fff3f3;
+        background: #ffffff;
+        color: var(--cor-primaria);
       }
     }
   }
@@ -183,6 +188,20 @@ const LinhaDupla = styled.div`
   }
 `;
 
+const BtnPagamento = styled.button`
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  font-size: 1.5rem;
+  color: var(--cor-cinza-escuro);
+
+  span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 21px;
+  }
+`;
+
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -194,6 +213,7 @@ const Checkout = observer(() => {
   const [cidade, setCidade] = useState("");
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
+  const [metodoPagamento, setMetodoPagamento] = useState("credito");
 
   return (
     <ContainerPrincipal>
@@ -339,11 +359,30 @@ const Checkout = observer(() => {
               Método de pagamento
             </Label>
             <div className="metodo-pagamento">
-              <button type="button" className="ativo">
-                Cartão de crédito
-              </button>
-              <button type="button">Cartão de débito</button>
-              <button type="button">Dinheiro</button>
+              <BtnPagamento
+                type="button"
+                className={metodoPagamento === "credito" ? "ativo" : ""}
+                onClick={() => setMetodoPagamento("credito")}
+              >
+                <FaRegCreditCard />
+                <span>Cartão de crédito</span>
+              </BtnPagamento>
+              <BtnPagamento
+                type="button"
+                className={metodoPagamento === "debito" ? "ativo" : ""}
+                onClick={() => setMetodoPagamento("debito")}
+              >
+                <FaRegCreditCard />
+                <span>Cartão de débito</span>
+              </BtnPagamento>
+              <BtnPagamento
+                type="button"
+                className={metodoPagamento === "dinheiro" ? "ativo" : ""}
+                onClick={() => setMetodoPagamento("dinheiro")}
+              >
+                <FaMoneyBillWave />
+                <span>Dinheiro</span>
+              </BtnPagamento>
             </div>
           </ContainerLabelInput>
 
