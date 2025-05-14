@@ -6,7 +6,7 @@ import {
   FaShoppingBag,
 } from "react-icons/fa";
 import { TiArrowLeft } from "react-icons/ti";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import ResumoPedido from "../Componentes/ResumoPedido";
 import { useStoreContext } from "../mobx/StoreContext";
@@ -202,6 +202,12 @@ const BtnPagamento = styled.button`
   }
 `;
 
+const TextoErro = styled.span`
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+`;
+
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -217,6 +223,64 @@ const Checkout = observer(() => {
 
   const [codigoCupom, setCodigoCupom] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState(null);
+
+  const [erroNome, setErroNome] = useState("");
+  const [erroEmail, setErroEmail] = useState("");
+  const [erroTelefone, setErroTelefone] = useState("");
+  const [erroCep, setErroCep] = useState("");
+  const [erroNumero, setErroNumero] = useState("");
+  const [erroComplemento, setErroComplemento] = useState("");
+
+  const navigate = useNavigate();
+
+  const validarFormulario = () => {
+    let valido = true;
+
+    if (!nome.trim()) {
+      setErroNome("Nome é obrigatório");
+      valido = false;
+    } else {
+      setErroNome("");
+    }
+
+    if (!email.trim()) {
+      setErroEmail("Email é obrigatório");
+      valido = false;
+    } else {
+      setErroEmail("");
+    }
+
+    if (!telefone.trim()) {
+      setErroTelefone("Telefone é obrigatório");
+      valido = false;
+    } else {
+      setErroTelefone("");
+    }
+
+    if (!cep.trim()) {
+      setErroCep("CEP é obrigatório");
+      valido = false;
+    } else {
+      setErroCep("");
+    }
+
+    if (!numero.trim()) {
+      setErroNumero("Número é obrigatório");
+      valido = false;
+    } else {
+      setErroNumero("");
+    }
+
+    const complemento = document.getElementById("complemento")?.value;
+    if (!complemento.trim()) {
+      setErroComplemento("Complemento é obrigatório");
+      valido = false;
+    } else {
+      setErroComplemento("");
+    }
+
+    return valido;
+  };
 
   return (
     <ContainerPrincipal>
@@ -234,7 +298,35 @@ const Checkout = observer(() => {
       </ContainerTopo>
 
       <GridCheckout>
-        <FormularioEntrega>
+        <FormularioEntrega
+          onSubmit={(e) => {
+            e.preventDefault();
+
+            const formularioValido = validarFormulario();
+            if (!formularioValido) return;
+
+            const dadosPedido = {
+              nome,
+              email,
+              telefone,
+              cep,
+              rua,
+              numero,
+              complemento: document.getElementById("complemento")?.value,
+              bairro,
+              cidade,
+              metodoPagamento,
+              itens: carrinhoStore.itens,
+              total: carrinhoStore.total,
+              cupom: cupomAplicado,
+            };
+
+            console.log("Pedido finalizado:", dadosPedido);
+
+            carrinhoStore.limparCarrinho();
+            navigate("/sucesso");
+          }}
+        >
           <ContainerLabelInput>
             <H4Estilizado>Informações de entrega</H4Estilizado>
             <Label htmlFor="nome">Nome completo</Label>
@@ -247,6 +339,7 @@ const Checkout = observer(() => {
                 setNome(e.target.value);
               }}
             />
+            {erroNome && <TextoErro>{erroNome}</TextoErro>}
           </ContainerLabelInput>
 
           <LinhaDupla>
@@ -261,6 +354,7 @@ const Checkout = observer(() => {
                   setEmail(e.target.value);
                 }}
               />
+              {erroEmail && <TextoErro>{erroEmail}</TextoErro>}
             </ContainerLabelInput>
 
             <ContainerLabelInput>
@@ -275,6 +369,7 @@ const Checkout = observer(() => {
                   setTelefone(telefoneFormatado);
                 }}
               />
+              {erroTelefone && <TextoErro>{erroTelefone}</TextoErro>}
             </ContainerLabelInput>
           </LinhaDupla>
 
@@ -299,6 +394,7 @@ const Checkout = observer(() => {
                   }
                 }}
               />
+              {erroCep && <TextoErro>{erroCep}</TextoErro>}
             </ContainerLabelInput>
 
             <ContainerLabelInput>
@@ -350,10 +446,12 @@ const Checkout = observer(() => {
                 value={numero}
                 onChange={(e) => setNumero(e.target.value)}
               />
+              {erroNumero && <TextoErro>{erroNumero}</TextoErro>}
             </ContainerLabelInput>
             <ContainerLabelInput>
               <Label htmlFor="complemento">Complemento</Label>
               <input id="complemento" type="text" placeholder="Complemento" />
+              {erroComplemento && <TextoErro>{erroComplemento}</TextoErro>}
             </ContainerLabelInput>
           </LinhaDupla>
 
