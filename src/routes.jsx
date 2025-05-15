@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
+import DadosCartao from "./Componentes/DadosCartao";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Checkout from "./Pages/Checkout";
@@ -23,6 +24,7 @@ function AppRoutes() {
             />
             <Route path="/carrinho" element={<PaginaCarrinho />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/dados-cartao" element={<DadosCartao />} />
           </Routes>
         </main>
         <Footer />

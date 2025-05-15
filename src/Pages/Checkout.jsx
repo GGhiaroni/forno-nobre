@@ -324,7 +324,7 @@ const Checkout = observer(() => {
             console.log("Pedido finalizado:", dadosPedido);
 
             carrinhoStore.limparCarrinho();
-            navigate("/sucesso");
+            navigate("/dados-cartao");
           }}
         >
           <ContainerLabelInput>
