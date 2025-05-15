@@ -4,9 +4,9 @@ import { Toaster } from "sonner";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Checkout from "./Pages/Checkout";
-import DadosCartao from "./Pages/DadosCartao";
 import Home from "./Pages/Home";
 import PaginaCarrinho from "./Pages/PaginaCarrinho";
+import PaginaDadosCartao from "./Pages/PaginaDadosCartao";
 import Pizza from "./Pages/Pizza";
 import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
 
@@ -25,7 +25,7 @@ function AppRoutes() {
             />
             <Route path="/carrinho" element={<PaginaCarrinho />} />
             <Route path="/checkout" element={<Checkout />} />
-            <Route path="/dados-cartao" element={<DadosCartao />} />
+            <Route path="/dados-cartao" element={<PaginaDadosCartao />} />
           </Routes>
         </main>
         <Footer />
