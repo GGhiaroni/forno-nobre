@@ -229,7 +229,10 @@ const DadosCartao = () => {
             maxLength={19}
             onFocus={() => setVirado(false)}
             value={numero}
-            onChange={(e) => setNumero(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^\d ]/g, "").slice(0, 19);
+              setNumero(value);
+            }}
             placeholder="0000 0000 0000 0000"
           />
         </GrupoCampo>
@@ -240,7 +243,12 @@ const DadosCartao = () => {
             type="text"
             onFocus={() => setVirado(false)}
             value={nome}
-            onChange={(e) => setNome(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value
+                .replace(/[^A-Za-zÀ-ÿ\s]/g, "")
+                .slice(0, 26);
+              setNome(value);
+            }}
             placeholder="Seu nome completo"
           />
         </GrupoCampo>
@@ -252,7 +260,10 @@ const DadosCartao = () => {
             maxLength={5}
             onFocus={() => setVirado(false)}
             value={validade}
-            onChange={(e) => setValidade(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value.replace(/[^\d/]/g, "").slice(0, 5);
+              setValidade(value);
+            }}
             placeholder="MM/AA"
           />
         </GrupoCampo>
@@ -265,7 +276,10 @@ const DadosCartao = () => {
             onFocus={() => setVirado(true)}
             onBlur={() => setVirado(false)}
             value={cvv}
-            onChange={(e) => setCvv(e.target.value)}
+            onChange={(e) => {
+              const value = e.target.value.replace(/\D/g, "").slice(0, 4);
+              setCvv(value);
+            }}
             placeholder="123"
           />
         </GrupoCampo>
