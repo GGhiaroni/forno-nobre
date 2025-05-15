@@ -5,6 +5,7 @@ import {
   FaRegCreditCard,
   FaShoppingBag,
 } from "react-icons/fa";
+import { FaPix } from "react-icons/fa6";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -220,6 +221,7 @@ const Checkout = observer(() => {
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
   const [metodoPagamento, setMetodoPagamento] = useState("credito");
+  const [tipoDePagamento, setTipoDePagamento] = useState("online");
 
   const [codigoCupom, setCodigoCupom] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState(null);
@@ -455,37 +457,52 @@ const Checkout = observer(() => {
             </ContainerLabelInput>
           </LinhaDupla>
 
-          <ContainerLabelInput className="metodos_pagamento">
-            <Label className="label_metodo-pagamento">
-              Método de pagamento
-            </Label>
-            <div className="metodo-pagamento">
-              <BtnPagamento
-                type="button"
-                className={metodoPagamento === "credito" ? "ativo" : ""}
-                onClick={() => setMetodoPagamento("credito")}
-              >
-                <FaRegCreditCard />
-                <span>Cartão de crédito</span>
-              </BtnPagamento>
-              <BtnPagamento
-                type="button"
-                className={metodoPagamento === "debito" ? "ativo" : ""}
-                onClick={() => setMetodoPagamento("debito")}
-              >
-                <FaRegCreditCard />
-                <span>Cartão de débito</span>
-              </BtnPagamento>
-              <BtnPagamento
-                type="button"
-                className={metodoPagamento === "dinheiro" ? "ativo" : ""}
-                onClick={() => setMetodoPagamento("dinheiro")}
-              >
-                <FaMoneyBillWave />
-                <span>Dinheiro</span>
-              </BtnPagamento>
-            </div>
-          </ContainerLabelInput>
+          {tipoDePagamento === "online" ? (
+            <ContainerLabelInput className="metodos_pagamento">
+              <Label className="label_metodo-pagamento">
+                Método de pagamento
+              </Label>
+              <div className="metodo-pagamento">
+                <BtnPagamento
+                  type="button"
+                  className={metodoPagamento === "credito" ? "ativo" : ""}
+                  onClick={() => setMetodoPagamento("credito")}
+                >
+                  <FaRegCreditCard />
+                  <span>Cartão de crédito</span>
+                </BtnPagamento>
+                <BtnPagamento
+                  type="button"
+                  className={metodoPagamento === "pix" ? "ativo" : ""}
+                  onClick={() => setMetodoPagamento("pix")}
+                >
+                  <FaPix />
+                  <span>Pix</span>
+                </BtnPagamento>
+              </div>
+            </ContainerLabelInput>
+          ) : (
+            <ContainerLabelInput>
+              <div className="metodo-pagamento">
+                <BtnPagamento
+                  type="button"
+                  className={metodoPagamento === "debito" ? "ativo" : ""}
+                  onClick={() => setMetodoPagamento("debito")}
+                >
+                  <FaRegCreditCard />
+                  <span>Cartão de débito</span>
+                </BtnPagamento>
+                <BtnPagamento
+                  type="button"
+                  className={metodoPagamento === "dinheiro" ? "ativo" : ""}
+                  onClick={() => setMetodoPagamento("dinheiro")}
+                >
+                  <FaMoneyBillWave />
+                  <span>Dinheiro</span>
+                </BtnPagamento>
+              </div>
+            </ContainerLabelInput>
+          )}
 
           <button type="submit" className="btn-finalizar">
             Finalizar pedido
