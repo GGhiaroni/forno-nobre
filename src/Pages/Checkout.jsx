@@ -362,7 +362,11 @@ const Checkout = observer(() => {
             console.log("Pedido finalizado:", dadosPedido);
 
             carrinhoStore.limparCarrinho();
-            navigate("/dados-cartao");
+
+            if (tipoDePagamento === "online" && metodoPagamento === "credito") {
+              console.log("clique no botao");
+              navigate("/dados-cartao");
+            }
           }}
         >
           <ContainerLabelInput>
