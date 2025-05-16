@@ -149,6 +149,9 @@ const FormularioEntrega = styled.form`
     font-size: 1rem;
     cursor: pointer;
     margin-top: 1rem;
+    &:hover {
+      background-color: var(--cor-hover);
+    }
   }
 `;
 
@@ -195,6 +198,7 @@ const BtnPagamento = styled.button`
   align-items: center;
   font-size: 1.5rem;
   color: var(--cor-cinza-escuro);
+  font-family: "Poppins";
 
   span {
     font-size: 1.1rem;
@@ -209,6 +213,38 @@ const TextoErro = styled.span`
   margin-top: 0.3rem;
 `;
 
+const LabelFormaPagamento = styled.label`
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: inline-block;
+  color: var(--cor-cinza-escuro);
+  margin-top: 1rem;
+
+  &.label_metodo-pagamento {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+`;
+
+const ContainerFormaPagamento = styled.div`
+  display: flex;
+  gap: 1rem;
+`;
+
+const BtnFormaPagamento = styled.button`
+  padding: 1rem;
+  background-color: var(--cor-primaria);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--cor-hover);
+  }
+`;
+
 const Checkout = observer(() => {
   const { carrinhoStore } = useStoreContext();
 
@@ -220,8 +256,8 @@ const Checkout = observer(() => {
   const [cidade, setCidade] = useState("");
   const [rua, setRua] = useState("");
   const [numero, setNumero] = useState("");
-  const [metodoPagamento, setMetodoPagamento] = useState("credito");
-  const [tipoDePagamento, setTipoDePagamento] = useState("online");
+  const [metodoPagamento, setMetodoPagamento] = useState("");
+  const [tipoDePagamento, setTipoDePagamento] = useState("");
 
   const [codigoCupom, setCodigoCupom] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState(null);
@@ -457,7 +493,26 @@ const Checkout = observer(() => {
             </ContainerLabelInput>
           </LinhaDupla>
 
-          {tipoDePagamento === "online" ? (
+          <LabelFormaPagamento className="label_metodo-pagamento">
+            Forma de pagamento
+          </LabelFormaPagamento>
+
+          <ContainerFormaPagamento>
+            <BtnFormaPagamento
+              type="button"
+              onClick={() => setTipoDePagamento("online")}
+            >
+              Pagar online
+            </BtnFormaPagamento>
+            <BtnFormaPagamento
+              type="button"
+              onClick={() => setTipoDePagamento("entrega")}
+            >
+              Pagar na entrega
+            </BtnFormaPagamento>
+          </ContainerFormaPagamento>
+
+          {tipoDePagamento && tipoDePagamento === "online" && (
             <ContainerLabelInput className="metodos_pagamento">
               <Label className="label_metodo-pagamento">
                 Método de pagamento
@@ -481,8 +536,13 @@ const Checkout = observer(() => {
                 </BtnPagamento>
               </div>
             </ContainerLabelInput>
-          ) : (
-            <ContainerLabelInput>
+          )}
+
+          {tipoDePagamento && tipoDePagamento === "entrega" && (
+            <ContainerLabelInput className="metodos_pagamento">
+              <Label className="label_metodo-pagamento">
+                Método de pagamento
+              </Label>
               <div className="metodo-pagamento">
                 <BtnPagamento
                   type="button"
