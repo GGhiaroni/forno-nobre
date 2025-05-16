@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { formatarNumeroCartao } from "../../utils/formatarNumeroCartao";
 import { formatarValidade } from "../../utils/formatarValidade";
@@ -183,12 +184,59 @@ const BotaoFinalizar = styled.button`
   }
 `;
 
+const TextoErro = styled.span`
+  color: red;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+`;
+
 const DadosCartao = () => {
   const [numero, setNumero] = useState("");
   const [nome, setNome] = useState("");
   const [validade, setValidade] = useState("");
   const [cvv, setCvv] = useState("");
   const [virado, setVirado] = useState(false);
+
+  const [erroNumeroCartao, setErroNumeroCartao] = useState("");
+  const [erroNomeTitular, setErroNomeTitular] = useState("");
+  const [erroValidade, setErroValidade] = useState("");
+  const [erroCvv, setErroCvv] = useState("");
+
+  const navigate = useNavigate();
+
+  const validarFormulario = () => {
+    let valido = true;
+
+    if (!numero.trim()) {
+      setErroNumeroCartao("Numero é obrigatório");
+      valido = false;
+    } else {
+      setErroNumeroCartao("");
+    }
+
+    if (!nome.trim()) {
+      setErroNomeTitular("Nome do titular é obrigatório");
+      valido = false;
+    } else {
+      setErroNomeTitular("");
+    }
+
+    if (!validade.trim()) {
+      setErroValidade("Validade é obrigatório");
+      valido = false;
+    } else {
+      setErroValidade("");
+    }
+
+    if (!cvv.trim()) {
+      setErroCvv("CVV é obrigatório");
+      valido = false;
+    } else {
+      setErroCvv("");
+    }
+
+    return valido;
+  };
 
   return (
     <ContainerPrincipal>
@@ -222,7 +270,14 @@ const DadosCartao = () => {
         </Cartao>
       </CartaoContainer>
 
-      <Formulario>
+      <Formulario
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formularioValido = validarFormulario();
+          if (!formularioValido) return;
+          navigate("/pedido-realizado");
+        }}
+      >
         <TituloFormulario>Informações do Cartão</TituloFormulario>
         <GrupoCampo>
           <Label>Número do Cartão</Label>
@@ -237,6 +292,7 @@ const DadosCartao = () => {
             }}
             placeholder="0000 0000 0000 0000"
           />
+          {erroNumeroCartao && <TextoErro>{erroNumeroCartao}</TextoErro>}
         </GrupoCampo>
 
         <GrupoCampo>
@@ -253,6 +309,7 @@ const DadosCartao = () => {
             }}
             placeholder="Seu nome completo"
           />
+          {erroNomeTitular && <TextoErro>{erroNomeTitular}</TextoErro>}
         </GrupoCampo>
 
         <GrupoCampo>
@@ -268,6 +325,7 @@ const DadosCartao = () => {
             }}
             placeholder="MM/AA"
           />
+          {erroValidade && <TextoErro>{erroValidade}</TextoErro>}
         </GrupoCampo>
 
         <GrupoCampo>
@@ -284,6 +342,7 @@ const DadosCartao = () => {
             }}
             placeholder="123"
           />
+          {erroCvv && <TextoErro>{erroCvv}</TextoErro>}
         </GrupoCampo>
         <BotaoFinalizar type="submit">Finalizar Pagamento</BotaoFinalizar>
       </Formulario>

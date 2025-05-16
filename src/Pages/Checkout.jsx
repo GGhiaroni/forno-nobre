@@ -364,8 +364,9 @@ const Checkout = observer(() => {
             carrinhoStore.limparCarrinho();
 
             if (tipoDePagamento === "online" && metodoPagamento === "credito") {
-              console.log("clique no botao");
               navigate("/dados-cartao");
+            } else if (tipoDePagamento === "entrega") {
+              navigate("/pedido-realiza");
             }
           }}
         >
