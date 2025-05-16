@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { formatarNumeroCartao } from "../../utils/formatarNumeroCartao";
+import { formatarValidade } from "../../utils/formatarValidade";
 
 const ContainerPrincipal = styled.div`
   width: 100%;
@@ -230,7 +232,7 @@ const DadosCartao = () => {
             onFocus={() => setVirado(false)}
             value={numero}
             onChange={(e) => {
-              const value = e.target.value.replace(/[^\d ]/g, "").slice(0, 19);
+              const value = formatarNumeroCartao(e.target.value);
               setNumero(value);
             }}
             placeholder="0000 0000 0000 0000"
@@ -261,7 +263,7 @@ const DadosCartao = () => {
             onFocus={() => setVirado(false)}
             value={validade}
             onChange={(e) => {
-              const value = e.target.value.replace(/[^\d/]/g, "").slice(0, 5);
+              const value = formatarValidade(e.target.value);
               setValidade(value);
             }}
             placeholder="MM/AA"
