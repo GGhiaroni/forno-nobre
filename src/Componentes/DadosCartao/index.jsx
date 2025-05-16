@@ -274,12 +274,12 @@ const DadosCartao = () => {
           <Label>CVV</Label>
           <CampoInput
             type="text"
-            maxLength={4}
+            maxLength={3}
             onFocus={() => setVirado(true)}
             onBlur={() => setVirado(false)}
             value={cvv}
             onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, "").slice(0, 4);
+              const value = e.target.value.replace(/\D/g, "").slice(0, 3);
               setCvv(value);
             }}
             placeholder="123"
