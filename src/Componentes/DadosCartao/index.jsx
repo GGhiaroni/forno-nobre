@@ -41,6 +41,7 @@ const TextoIconeSeta = styled.h3`
   color: var(--cor-cinza-medio);
   font-weight: 300;
   transition: color 0.3s ease;
+  width: auto;
 `;
 
 const ContainerIconeETexto = styled.div`
@@ -50,6 +51,7 @@ const ContainerIconeETexto = styled.div`
   cursor: pointer;
   margin-top: 0.1rem;
   margin-bottom: 2rem;
+  width: 250px;
 
   &:hover {
     ${IconeSeta} {
@@ -67,6 +69,7 @@ const LinkEstilizado = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
+  width: fit-content;
 `;
 
 const CartaoContainer = styled.div`
