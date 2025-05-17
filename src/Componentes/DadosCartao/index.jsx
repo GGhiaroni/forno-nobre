@@ -83,6 +83,7 @@ const TextoCartao = styled.p`
   font-size: 1.1rem;
   letter-spacing: 2px;
   font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
 `;
 
 const TituloCartao = styled.h4`
@@ -101,6 +102,7 @@ const CampoInput = styled.input`
   font-family: "Poppins", sans-serif;
   outline: none;
   transition: border-color 0.3s, box-shadow 0.3s;
+  text-transform: uppercase;
   background-color: #fff;
   &:focus {
     border-color: var(--cor-primaria);
