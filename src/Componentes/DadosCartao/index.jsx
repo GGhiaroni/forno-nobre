@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { TiArrowLeft } from "react-icons/ti";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { formatarNumeroCartao } from "../../utils/formatarNumeroCartao";
 import { formatarValidade } from "../../utils/formatarValidade";
@@ -9,13 +10,63 @@ const ContainerPrincipal = styled.div`
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
-  padding-top: 10rem;
+  padding-top: 2rem;
   padding-bottom: 5rem;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+`;
+
+const H3Estilizado = styled.h3`
+  font-size: var(--tamanho-fonte-xxl);
+  line-height: 36px;
+  font-weight: 600;
+  color: var(--cor-icone-carrinho);
+  text-align: start;
+  margin-bottom: 0.1rem;
+`;
+
+const ContainerCartaoFormulario = styled.div`
+  display: flex;
   gap: 6rem;
+`;
+
+const IconeSeta = styled(TiArrowLeft)`
+  font-size: 2rem;
+  color: var(--cor-cinza-medio);
+  transition: color 0.3s ease, transform 0.3s ease;
+`;
+
+const TextoIconeSeta = styled.h3`
+  font-size: 1rem;
+  color: var(--cor-cinza-medio);
+  font-weight: 300;
+  transition: color 0.3s ease;
+`;
+
+const ContainerIconeETexto = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 0.1rem;
+  margin-bottom: 2rem;
+
+  &:hover {
+    ${IconeSeta} {
+      color: var(--cor-primaria);
+      transform: translateX(-4px);
+    }
+
+    ${TextoIconeSeta} {
+      color: var(--cor-primaria);
+    }
+  }
+`;
+
+const LinkEstilizado = styled(Link)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 `;
 
 const CartaoContainer = styled.div`
@@ -242,112 +293,121 @@ const DadosCartao = () => {
 
   return (
     <ContainerPrincipal>
-      <CartaoContainer>
-        <Cartao
-          animate={{ rotateY: virado ? 180 : 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
+      <H3Estilizado>Pagamento com Cartão de Crédito</H3Estilizado>
+      <ContainerIconeETexto>
+        <LinkEstilizado to="/checkout">
+          <IconeSeta />
+          <TextoIconeSeta>Voltar para o carrinho</TextoIconeSeta>
+        </LinkEstilizado>
+      </ContainerIconeETexto>
+      <ContainerCartaoFormulario>
+        <CartaoContainer>
+          <Cartao
+            animate={{ rotateY: virado ? 180 : 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+          >
+            <Frente>
+              <div>
+                <Chip />
+                <TituloCartao>Número do Cartão</TituloCartao>
+                <TextoCartao>{numero || "**** **** **** ****"}</TextoCartao>
+
+                <TituloCartao>Nome do Titular</TituloCartao>
+                <TextoCartao>{nome || "SEU NOME AQUI"}</TextoCartao>
+
+                <TituloCartao>Validade</TituloCartao>
+                <TextoCartao>{validade || "MM/AA"}</TextoCartao>
+              </div>
+              <DetalheDecorativo />
+            </Frente>
+
+            <Verso>
+              <LinhaPreta />
+              <CVVContainer>
+                <TituloCartao style={{ color: "#fff" }}>CVV</TituloCartao>
+                <CVVBox>{cvv || "•••"}</CVVBox>
+              </CVVContainer>
+            </Verso>
+          </Cartao>
+        </CartaoContainer>
+
+        <Formulario
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formularioValido = validarFormulario();
+            if (!formularioValido) return;
+            navigate("/pedido-realizado");
+          }}
         >
-          <Frente>
-            <div>
-              <Chip />
-              <TituloCartao>Número do Cartão</TituloCartao>
-              <TextoCartao>{numero || "**** **** **** ****"}</TextoCartao>
+          <TituloFormulario>Informações do Cartão</TituloFormulario>
+          <GrupoCampo>
+            <Label>Número do Cartão</Label>
+            <CampoInput
+              type="text"
+              maxLength={19}
+              onFocus={() => setVirado(false)}
+              value={numero}
+              onChange={(e) => {
+                const value = formatarNumeroCartao(e.target.value);
+                setNumero(value);
+              }}
+              placeholder="0000 0000 0000 0000"
+            />
+            {erroNumeroCartao && <TextoErro>{erroNumeroCartao}</TextoErro>}
+          </GrupoCampo>
 
-              <TituloCartao>Nome do Titular</TituloCartao>
-              <TextoCartao>{nome || "SEU NOME AQUI"}</TextoCartao>
+          <GrupoCampo>
+            <Label>Nome do Titular</Label>
+            <CampoInput
+              type="text"
+              onFocus={() => setVirado(false)}
+              value={nome}
+              onChange={(e) => {
+                const value = e.target.value
+                  .replace(/[^A-Za-zÀ-ÿ\s]/g, "")
+                  .slice(0, 26);
+                setNome(value);
+              }}
+              placeholder="Seu nome completo"
+            />
+            {erroNomeTitular && <TextoErro>{erroNomeTitular}</TextoErro>}
+          </GrupoCampo>
 
-              <TituloCartao>Validade</TituloCartao>
-              <TextoCartao>{validade || "MM/AA"}</TextoCartao>
-            </div>
-            <DetalheDecorativo />
-          </Frente>
+          <GrupoCampo>
+            <Label>Validade</Label>
+            <CampoInput
+              type="text"
+              maxLength={5}
+              onFocus={() => setVirado(false)}
+              value={validade}
+              onChange={(e) => {
+                const value = formatarValidade(e.target.value);
+                setValidade(value);
+              }}
+              placeholder="MM/AA"
+            />
+            {erroValidade && <TextoErro>{erroValidade}</TextoErro>}
+          </GrupoCampo>
 
-          <Verso>
-            <LinhaPreta />
-            <CVVContainer>
-              <TituloCartao style={{ color: "#fff" }}>CVV</TituloCartao>
-              <CVVBox>{cvv || "•••"}</CVVBox>
-            </CVVContainer>
-          </Verso>
-        </Cartao>
-      </CartaoContainer>
-
-      <Formulario
-        onSubmit={(e) => {
-          e.preventDefault();
-          const formularioValido = validarFormulario();
-          if (!formularioValido) return;
-          navigate("/pedido-realizado");
-        }}
-      >
-        <TituloFormulario>Informações do Cartão</TituloFormulario>
-        <GrupoCampo>
-          <Label>Número do Cartão</Label>
-          <CampoInput
-            type="text"
-            maxLength={19}
-            onFocus={() => setVirado(false)}
-            value={numero}
-            onChange={(e) => {
-              const value = formatarNumeroCartao(e.target.value);
-              setNumero(value);
-            }}
-            placeholder="0000 0000 0000 0000"
-          />
-          {erroNumeroCartao && <TextoErro>{erroNumeroCartao}</TextoErro>}
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label>Nome do Titular</Label>
-          <CampoInput
-            type="text"
-            onFocus={() => setVirado(false)}
-            value={nome}
-            onChange={(e) => {
-              const value = e.target.value
-                .replace(/[^A-Za-zÀ-ÿ\s]/g, "")
-                .slice(0, 26);
-              setNome(value);
-            }}
-            placeholder="Seu nome completo"
-          />
-          {erroNomeTitular && <TextoErro>{erroNomeTitular}</TextoErro>}
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label>Validade</Label>
-          <CampoInput
-            type="text"
-            maxLength={5}
-            onFocus={() => setVirado(false)}
-            value={validade}
-            onChange={(e) => {
-              const value = formatarValidade(e.target.value);
-              setValidade(value);
-            }}
-            placeholder="MM/AA"
-          />
-          {erroValidade && <TextoErro>{erroValidade}</TextoErro>}
-        </GrupoCampo>
-
-        <GrupoCampo>
-          <Label>CVV</Label>
-          <CampoInput
-            type="text"
-            maxLength={3}
-            onFocus={() => setVirado(true)}
-            onBlur={() => setVirado(false)}
-            value={cvv}
-            onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, "").slice(0, 3);
-              setCvv(value);
-            }}
-            placeholder="123"
-          />
-          {erroCvv && <TextoErro>{erroCvv}</TextoErro>}
-        </GrupoCampo>
-        <BotaoFinalizar type="submit">Finalizar Pagamento</BotaoFinalizar>
-      </Formulario>
+          <GrupoCampo>
+            <Label>CVV</Label>
+            <CampoInput
+              type="text"
+              maxLength={3}
+              onFocus={() => setVirado(true)}
+              onBlur={() => setVirado(false)}
+              value={cvv}
+              onChange={(e) => {
+                const value = e.target.value.replace(/\D/g, "").slice(0, 3);
+                setCvv(value);
+              }}
+              placeholder="123"
+            />
+            {erroCvv && <TextoErro>{erroCvv}</TextoErro>}
+          </GrupoCampo>
+          <BotaoFinalizar type="submit">Finalizar Pagamento</BotaoFinalizar>
+        </Formulario>
+      </ContainerCartaoFormulario>
     </ContainerPrincipal>
   );
 };
