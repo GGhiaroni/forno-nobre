@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
-
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
 import Checkout from "./Pages/Checkout";
@@ -9,6 +8,7 @@ import PaginaCarrinho from "./Pages/PaginaCarrinho";
 import PaginaDadosCartao from "./Pages/PaginaDadosCartao";
 import Pizza from "./Pages/Pizza";
 import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
+import Sucesso from "./Pages/Sucesso";
 
 function AppRoutes() {
   return (
@@ -26,6 +26,7 @@ function AppRoutes() {
             <Route path="/carrinho" element={<PaginaCarrinho />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/dados-cartao" element={<PaginaDadosCartao />} />
+            <Route path="/pedido-realizado" element={<Sucesso />} />
           </Routes>
         </main>
         <Footer />

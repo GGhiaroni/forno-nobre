@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { CiCalendar, CiCreditCard2, CiLock, CiUser } from "react-icons/ci";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -225,6 +226,10 @@ const CVVContainer = styled.div`
 `;
 
 const BotaoFinalizar = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
   margin-top: 10px;
   padding: 14px;
   border: none;
@@ -280,6 +285,11 @@ const IconeCadeadoEstilizado = styled(CiLock)`
   left: 10px;
   font-size: 1.3rem;
   color: var(--cor-cinza-medio);
+`;
+
+const IconeSetasDuplas = styled(MdKeyboardDoubleArrowRight)`
+  font-size: 1.3rem;
+  color: var(--cor-branca);
 `;
 
 const CampoInputComPadding = styled(CampoInput)`
@@ -469,7 +479,9 @@ const DadosCartao = () => {
             </InputComIconeContainer>
             {erroCvv && <TextoErro>{erroCvv}</TextoErro>}
           </GrupoCampo>
-          <BotaoFinalizar type="submit">Finalizar Pagamento</BotaoFinalizar>
+          <BotaoFinalizar type="submit">
+            Finalizar Pagamento <IconeSetasDuplas />{" "}
+          </BotaoFinalizar>
         </Formulario>
       </ContainerCartaoFormulario>
     </ContainerPrincipal>

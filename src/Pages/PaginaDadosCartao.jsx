@@ -19,10 +19,7 @@ const PaginaDadosCartao = observer(() => {
   const { carrinhoStore } = useStoreContext();
   const [codigoCupom, setCodigoCupom] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState(null);
-  console.log(
-    "PaginaDadosCartao - carrinhoStore.itensNoCarrinho:",
-    carrinhoStore.itensNoCarrinho
-  );
+
   return (
     <ContainerPrincipal>
       <DadosCartao />
