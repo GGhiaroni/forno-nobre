@@ -367,7 +367,7 @@ const Checkout = observer(() => {
               tipoDePagamento === "online" &&
               metodoPagamento === "pix"
             ) {
-              navigate("/pagameto-pix");
+              navigate("/pagamento-pix");
             } else {
               navigate("/pedido-realizado");
             }
