@@ -273,6 +273,9 @@ const DadosCartao = () => {
     if (!nome.trim()) {
       setErroNomeTitular("Nome do titular é obrigatório");
       valido = false;
+    } else if (nome.trim().length < 15) {
+      setErroNomeTitular("O nome do titular deve ter no mínimo 15 caracteres.");
+      valido = false;
     } else {
       setErroNomeTitular("");
     }
