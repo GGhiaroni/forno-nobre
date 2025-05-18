@@ -363,8 +363,13 @@ const Checkout = observer(() => {
 
             if (tipoDePagamento === "online" && metodoPagamento === "credito") {
               navigate("/dados-cartao");
-            } else if (tipoDePagamento === "entrega") {
-              navigate("/pedido-realiza");
+            } else if (
+              tipoDePagamento === "online" &&
+              metodoPagamento === "pix"
+            ) {
+              navigate("/pagameto-pix");
+            } else {
+              navigate("/pedido-realizado");
             }
           }}
         >

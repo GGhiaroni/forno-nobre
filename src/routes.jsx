@@ -9,6 +9,7 @@ import PaginaDadosCartao from "./Pages/PaginaDadosCartao";
 import Pizza from "./Pages/Pizza";
 import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
 import Sucesso from "./Pages/Sucesso";
+import PagamentoPix from "./Pages/PagamentoPix";
 
 function AppRoutes() {
   return (
@@ -27,6 +28,7 @@ function AppRoutes() {
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/dados-cartao" element={<PaginaDadosCartao />} />
             <Route path="/pedido-realizado" element={<Sucesso />} />
+            <Route path="/pagamento-pix" element={<PagamentoPix />} />
           </Routes>
         </main>
         <Footer />
