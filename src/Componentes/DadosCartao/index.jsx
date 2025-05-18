@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { CiCalendar, CiCreditCard2, CiLock, CiUser } from "react-icons/ci";
 import { TiArrowLeft } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -246,6 +247,45 @@ const TextoErro = styled.span`
   margin-top: 0.3rem;
 `;
 
+const InputComIconeContainer = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 90%;
+`;
+
+const IconeCartaoDeCredito = styled(CiCreditCard2)`
+  position: absolute;
+  left: 10px;
+  font-size: 1.3rem;
+  color: var(--cor-cinza-medio);
+`;
+
+const IconeUsuario = styled(CiUser)`
+  position: absolute;
+  left: 10px;
+  font-size: 1.3rem;
+  color: var(--cor-cinza-medio);
+`;
+
+const IconeCalendario = styled(CiCalendar)`
+  position: absolute;
+  left: 10px;
+  font-size: 1.3rem;
+  color: var(--cor-cinza-medio);
+`;
+
+const IconeCadeadoEstilizado = styled(CiLock)`
+  position: absolute;
+  left: 10px;
+  font-size: 1.3rem;
+  color: var(--cor-cinza-medio);
+`;
+
+const CampoInputComPadding = styled(CampoInput)`
+  padding-left: 35px;
+`;
+
 const DadosCartao = () => {
   const [numero, setNumero] = useState("");
   const [nome, setNome] = useState("");
@@ -348,67 +388,85 @@ const DadosCartao = () => {
           <TituloFormulario>Informações do Cartão</TituloFormulario>
           <GrupoCampo>
             <Label>Número do Cartão</Label>
-            <CampoInput
-              type="text"
-              maxLength={19}
-              onFocus={() => setVirado(false)}
-              value={numero}
-              onChange={(e) => {
-                const value = formatarNumeroCartao(e.target.value);
-                setNumero(value);
-              }}
-              placeholder="0000 0000 0000 0000"
-            />
+            <InputComIconeContainer>
+              <IconeCartaoDeCredito />
+              <CampoInputComPadding
+                type="text"
+                maxLength={19}
+                onFocus={() => setVirado(false)}
+                value={numero}
+                onChange={(e) => {
+                  const value = formatarNumeroCartao(e.target.value);
+                  setNumero(value);
+                  setErroNumeroCartao("");
+                }}
+                placeholder="0000 0000 0000 0000"
+              />
+            </InputComIconeContainer>
             {erroNumeroCartao && <TextoErro>{erroNumeroCartao}</TextoErro>}
           </GrupoCampo>
 
           <GrupoCampo>
             <Label>Nome do Titular</Label>
-            <CampoInput
-              type="text"
-              onFocus={() => setVirado(false)}
-              value={nome}
-              onChange={(e) => {
-                const value = e.target.value
-                  .replace(/[^A-Za-zÀ-ÿ\s]/g, "")
-                  .slice(0, 26);
-                setNome(value);
-              }}
-              placeholder="Seu nome completo"
-            />
+            <InputComIconeContainer>
+              <IconeUsuario />
+              <CampoInputComPadding
+                type="text"
+                onFocus={() => setVirado(false)}
+                value={nome}
+                onChange={(e) => {
+                  const value = e.target.value
+                    .replace(/[^A-Za-zÀ-ÿ\s]/g, "")
+                    .slice(0, 26);
+                  setNome(value);
+                  if (value.trim().length >= 15) {
+                    setErroNomeTitular("");
+                  }
+                }}
+                placeholder="Seu nome completo"
+              />
+            </InputComIconeContainer>
             {erroNomeTitular && <TextoErro>{erroNomeTitular}</TextoErro>}
           </GrupoCampo>
 
           <GrupoCampo>
             <Label>Validade</Label>
-            <CampoInput
-              type="text"
-              maxLength={5}
-              onFocus={() => setVirado(false)}
-              value={validade}
-              onChange={(e) => {
-                const value = formatarValidade(e.target.value);
-                setValidade(value);
-              }}
-              placeholder="MM/AA"
-            />
+            <InputComIconeContainer>
+              <IconeCalendario />
+              <CampoInputComPadding
+                type="text"
+                maxLength={5}
+                onFocus={() => setVirado(false)}
+                value={validade}
+                onChange={(e) => {
+                  const value = formatarValidade(e.target.value);
+                  setValidade(value);
+                  setErroValidade("");
+                }}
+                placeholder="MM/AA"
+              />
+            </InputComIconeContainer>
             {erroValidade && <TextoErro>{erroValidade}</TextoErro>}
           </GrupoCampo>
 
           <GrupoCampo>
             <Label>CVV</Label>
-            <CampoInput
-              type="text"
-              maxLength={3}
-              onFocus={() => setVirado(true)}
-              onBlur={() => setVirado(false)}
-              value={cvv}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, "").slice(0, 3);
-                setCvv(value);
-              }}
-              placeholder="123"
-            />
+            <InputComIconeContainer>
+              <IconeCadeadoEstilizado />
+              <CampoInputComPadding
+                type="password"
+                maxLength={3}
+                onFocus={() => setVirado(true)}
+                onBlur={() => setVirado(false)}
+                value={cvv}
+                onChange={(e) => {
+                  const value = e.target.value.replace(/\D/g, "").slice(0, 3);
+                  setCvv(value);
+                  setErroCvv("");
+                }}
+                placeholder="•••"
+              />
+            </InputComIconeContainer>
             {erroCvv && <TextoErro>{erroCvv}</TextoErro>}
           </GrupoCampo>
           <BotaoFinalizar type="submit">Finalizar Pagamento</BotaoFinalizar>
