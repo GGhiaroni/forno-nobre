@@ -73,6 +73,30 @@ const LinkEstilizado = styled(Link)`
   width: fit-content;
 `;
 
+const ContainerQrCode = styled.div`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--cor-cinza-claro-extra);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+`;
+
+const ContainerCards = styled.div`
+  display: flex;
+`;
+
+const ParagrafoEstilizado = styled.div`
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--cor-cinza-escuro);
+`;
+
+const ParagrafoEstilizadoSecundario = styled.div`
+  font-size: 1rem;
+  color: var(--cor-cinza-medio);
+`;
+
 const PagamentoPix = () => {
   return (
     <ContainerPrincipal>
@@ -86,6 +110,19 @@ const PagamentoPix = () => {
           <TextoIconeSeta>Voltar para o checkout</TextoIconeSeta>
         </LinkEstilizado>
       </ContainerIconeETexto>
+      <ContainerCards>
+        <ContainerQrCode>
+          <ParagrafoEstilizado>
+            Escaneie o QR Code para pagar
+          </ParagrafoEstilizado>
+          <ParagrafoEstilizadoSecundario>
+            Use o app do seu banco para escanear o código PIX abaixo
+          </ParagrafoEstilizadoSecundario>
+          <ParagrafoEstilizadoSecundario>
+            Ou copie e cole o código PIX
+          </ParagrafoEstilizadoSecundario>
+        </ContainerQrCode>
+      </ContainerCards>
     </ContainerPrincipal>
   );
 };
