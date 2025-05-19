@@ -1,5 +1,6 @@
 import { LuQrCode } from "react-icons/lu";
 import { TiArrowLeft } from "react-icons/ti";
+import QRCode from "react-qr-code";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -97,7 +98,39 @@ const ParagrafoEstilizadoSecundario = styled.div`
   color: var(--cor-cinza-medio);
 `;
 
+const CodigoPix = styled.div`
+  background: #f0f4f8;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  word-break: break-word;
+  text-align: center;
+  margin-bottom: 1rem;
+  max-width: 100%;
+`;
+
+const BotaoCopiar = styled.button`
+  padding: 0.8rem 1.5rem;
+  background-color: white;
+  border: 1px solid var(--cor-cinza-claro);
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: var(--cor-cinza-claro-extra);
+  }
+`;
+
 const PagamentoPix = () => {
+  const codigoPix =
+    "00020101021226720014BR.GOV.BCB.PIX0114+5521987654352052040000530398654052905802BR5913PizzaDelivery6008Sao Paulo62070503***63041234";
+
+  const copiarCodigoPix = () => {
+    navigator.clipboard.writeText(codigoPix);
+  };
+
   return (
     <ContainerPrincipal>
       <ContainerTitulo>
@@ -118,9 +151,14 @@ const PagamentoPix = () => {
           <ParagrafoEstilizadoSecundario>
             Use o app do seu banco para escanear o código PIX abaixo
           </ParagrafoEstilizadoSecundario>
+          <div>
+            <QRCode value={codigoPix} size={180} />
+          </div>
           <ParagrafoEstilizadoSecundario>
             Ou copie e cole o código PIX
           </ParagrafoEstilizadoSecundario>
+          <CodigoPix>{codigoPix}</CodigoPix>
+          <BotaoCopiar onClick={copiarCodigoPix}>Copiar código</BotaoCopiar>
         </ContainerQrCode>
       </ContainerCards>
     </ContainerPrincipal>
