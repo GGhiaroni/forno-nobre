@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { LuQrCode } from "react-icons/lu";
 import { TiArrowLeft } from "react-icons/ti";
 import QRCode from "react-qr-code";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import styled from "styled-components";
 import ResumoPedido from "../Componentes/ResumoPedido";
@@ -188,6 +188,8 @@ const PagamentoPix = () => {
   const [codigoCupom, setCodigoCupom] = useState("");
   const [cupomAplicado, setCupomAplicado] = useState(null);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const gerarCodigoPix = () => {
       const random = Math.floor(Math.random() * 1000000000);
@@ -206,6 +208,10 @@ const PagamentoPix = () => {
 
   const copiarCodigoPix = () => {
     navigator.clipboard.writeText(codigoPix);
+  };
+
+  const pagamentoRealizado = () => {
+    navigate("/pedido-realizado");
   };
 
   return (
@@ -274,7 +280,9 @@ const PagamentoPix = () => {
               "Confirmar Pagamento" abaixo
             </ParagrafoEstilizadoInstrucoes>
           </ContainerInstrucoes>
-          <BotaoFinalizar>Confirmar pagamento</BotaoFinalizar>
+          <BotaoFinalizar onClick={() => pagamentoRealizado()}>
+            Confirmar pagamento
+          </BotaoFinalizar>
         </ContainerQrCode>
         <ResumoPedido
           carrinhoStore={carrinhoStore}
