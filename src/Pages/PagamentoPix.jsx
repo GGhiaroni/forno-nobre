@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { LuQrCode } from "react-icons/lu";
 import { TiArrowLeft } from "react-icons/ti";
 import QRCode from "react-qr-code";
@@ -143,8 +144,23 @@ const ContainerInstrucoes = styled.div`
 `;
 
 const PagamentoPix = () => {
-  const codigoPix =
-    "00020101021226720014BR.GOV.BCB.PIX0114+5521987654352052040000530398654052905802BR5913PizzaDelivery6008Sao Paulo62070503***63041234";
+  const [codigoPix, setCodigoPix] = useState("");
+
+  useEffect(() => {
+    const gerarCodigoPix = () => {
+      const random = Math.floor(Math.random() * 1000000000);
+      const codigo =
+        `00020101021226720014BR.GOV.BCB.PIX0114+55219876543` +
+        `5204000053039865405${(Math.random() * 50 + 10)
+          .toFixed(2)
+          .replace(".", "")}` +
+        `5802BR5913FornoNobre6008RiodeJaneiro62070503***6304` +
+        random.toString().padStart(10, "0");
+      return codigo;
+    };
+
+    setCodigoPix(gerarCodigoPix());
+  }, []);
 
   const copiarCodigoPix = () => {
     navigator.clipboard.writeText(codigoPix);
