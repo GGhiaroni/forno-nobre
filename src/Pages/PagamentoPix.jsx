@@ -2,6 +2,7 @@ import { LuQrCode } from "react-icons/lu";
 import { TiArrowLeft } from "react-icons/ti";
 import QRCode from "react-qr-code";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import styled from "styled-components";
 
 const ContainerPrincipal = styled.div`
@@ -77,6 +78,7 @@ const LinkEstilizado = styled(Link)`
 const ContainerQrCode = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   border: 1px solid var(--cor-cinza-claro-extra);
   padding: 1.5rem;
   border-radius: 8px;
@@ -115,12 +117,29 @@ const BotaoCopiar = styled.button`
   border: 1px solid var(--cor-cinza-claro);
   border-radius: 6px;
   cursor: pointer;
-  font-weight: 500;
+  font-weight: 400;
   transition: background-color 0.3s ease;
+  font-family: "Poppins";
+  font-size: 1rem;
+  color: var(--cor-cinza-medio);
 
   &:hover {
     background-color: var(--cor-cinza-claro-extra);
   }
+`;
+
+const ContainerQrCodeImagem = styled.div`
+  display: flex;
+  justify-content: center;
+  border: 2px solid var(--cor-cinza-claro-extra);
+  padding: 1rem;
+  border-radius: 8px;
+  max-width: fit-content;
+`;
+
+const ContainerInstrucoes = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const PagamentoPix = () => {
@@ -151,14 +170,45 @@ const PagamentoPix = () => {
           <ParagrafoEstilizadoSecundario>
             Use o app do seu banco para escanear o código PIX abaixo
           </ParagrafoEstilizadoSecundario>
-          <div>
+          <ContainerQrCodeImagem>
             <QRCode value={codigoPix} size={180} />
-          </div>
+          </ContainerQrCodeImagem>
           <ParagrafoEstilizadoSecundario>
             Ou copie e cole o código PIX
           </ParagrafoEstilizadoSecundario>
           <CodigoPix>{codigoPix}</CodigoPix>
-          <BotaoCopiar onClick={copiarCodigoPix}>Copiar código</BotaoCopiar>
+          <BotaoCopiar
+            onClick={(e) => {
+              e.preventDefault();
+              copiarCodigoPix();
+              toast.success(`Código pix copiado!`, {
+                duration: 1200,
+              });
+            }}
+          >
+            Copiar código
+          </BotaoCopiar>
+          <ContainerInstrucoes>
+            <ParagrafoEstilizado>Como pagar com PIX</ParagrafoEstilizado>
+            <ParagrafoEstilizadoSecundario>
+              1. Abra o aplicativo do seu banco
+            </ParagrafoEstilizadoSecundario>
+            <ParagrafoEstilizadoSecundario>
+              2. Escolha a opção PIX
+            </ParagrafoEstilizadoSecundario>
+            <ParagrafoEstilizadoSecundario>
+              3. Escaneie o QR Code ou cole o código copiado
+            </ParagrafoEstilizadoSecundario>
+            <ParagrafoEstilizadoSecundario>
+              4. Confirme as informações e valor
+            </ParagrafoEstilizadoSecundario>
+            <ParagrafoEstilizadoSecundario>
+              5. Finalize o pagamento no aplicativo do seu banco
+            </ParagrafoEstilizadoSecundario>
+            <ParagrafoEstilizadoSecundario>
+              6. Após pagar, clique em "Confirmar Pagamento" abaixo
+            </ParagrafoEstilizadoSecundario>
+          </ContainerInstrucoes>
         </ContainerQrCode>
       </ContainerCards>
     </ContainerPrincipal>
