@@ -14,7 +14,7 @@ const SecaoCardapio = styled.section`
   scroll-margin-top: 100px;
 `;
 
-const Home = ({ busca }) => {
+const Home = ({ busca, setBusca }) => {
   const [categoriaAtiva, setCategoriaAtiva] = useState("Todas");
 
   const cardapioRef = useRef(null);
@@ -41,7 +41,11 @@ const Home = ({ busca }) => {
           setCategoriaAtiva={setCategoriaAtiva}
         />
         <SecaoCardapio ref={cardapioRef}>
-          <CardsPizza categoriaAtiva={categoriaAtiva} busca={busca} />
+          <CardsPizza
+            categoriaAtiva={categoriaAtiva}
+            busca={busca}
+            setBusca={setBusca}
+          />
         </SecaoCardapio>
       </ContainerHome>
     </>

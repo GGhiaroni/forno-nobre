@@ -20,7 +20,11 @@ function AppRoutes() {
     <BrowserRouter>
       <ScrollToTop />
       <div className="layout">
-        <Header valorBusca={busca} onBuscaChange={setBusca} />
+        <Header
+          valorBusca={busca}
+          onBuscaChange={setBusca}
+          setBusca={setBusca}
+        />
         <main className="conteudo">
           <Routes>
             <Route index element={<Home busca={busca} />} />

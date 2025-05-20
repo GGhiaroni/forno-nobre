@@ -173,7 +173,7 @@ const ImagemSugestao = styled.img`
   border-radius: 8px;
 `;
 
-const CardsPizza = observer(({ categoriaAtiva, busca }) => {
+const CardsPizza = observer(({ categoriaAtiva, busca, setBusca }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -216,6 +216,7 @@ const CardsPizza = observer(({ categoriaAtiva, busca }) => {
             <li key={pizza.id}>
               <ItemSugestao
                 to={`/pizza/${pizza.id}/${formatarTextoParaUrl(pizza.sabor)}`}
+                onClick={() => setBusca("")}
               >
                 <ImagemSugestao
                   src={pizza.fotoUm}
