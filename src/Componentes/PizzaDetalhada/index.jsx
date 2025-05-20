@@ -1,7 +1,10 @@
+import { observer } from "mobx-react-lite";
 import { useState } from "react";
 import { LuPizza } from "react-icons/lu";
 import { Link } from "react-router-dom";
+import { toast } from "sonner";
 import styled from "styled-components";
+import { carrinhoStore } from "../../mobx/carrinhoStore";
 import { formatarTextoParaUrl } from "../../utils/formatarTextoParaUrl";
 
 const ContainerPagina = styled.div`
@@ -146,7 +149,7 @@ const LinkCategorias = styled(Link)`
   text-decoration: none;
 `;
 
-const PizzaDetalhada = ({ pizza }) => {
+const PizzaDetalhada = observer(({ pizza }) => {
   const [fotoSelecionada, setFotoSelecionada] = useState(1);
 
   const ingredientesSeparados = pizza.descricao.split(",");
@@ -222,12 +225,25 @@ const PizzaDetalhada = ({ pizza }) => {
           </UlEstilizado>
           <ContainerInferior>
             <Preco>R$ {pizza.preco.toFixed(2).replace(".", ",")}</Preco>
-            <BtnAdicionar>Adicionar ao carrinho</BtnAdicionar>
+            <BtnAdicionar
+              onClick={(e) => {
+                e.preventDefault();
+                carrinhoStore.adicionarAoCarrinho();
+                toast.success(
+                  `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`,
+                  {
+                    duration: 1200,
+                  }
+                );
+              }}
+            >
+              Adicionar ao carrinho
+            </BtnAdicionar>
           </ContainerInferior>
         </ContainerDetalhes>
       </ContainerPrincipal>
     </ContainerPagina>
   );
-};
+});
 
 export default PizzaDetalhada;
