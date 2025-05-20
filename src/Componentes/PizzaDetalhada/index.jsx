@@ -16,6 +16,7 @@ const ContainerPagina = styled.div`
 `;
 
 const ContainerPrincipal = styled.div`
+  margin-top: 8rem;
   display: flex;
   gap: 2rem;
   background-color: #fff;

@@ -2,18 +2,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import Footer from "./Componentes/Footer";
 import Header from "./Componentes/Header";
+import ScrollToTop from "./Componentes/ScrollToTop";
 import Checkout from "./Pages/Checkout";
 import Home from "./Pages/Home";
+import PagamentoPix from "./Pages/PagamentoPix";
 import PaginaCarrinho from "./Pages/PaginaCarrinho";
 import PaginaDadosCartao from "./Pages/PaginaDadosCartao";
 import Pizza from "./Pages/Pizza";
 import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
 import Sucesso from "./Pages/Sucesso";
-import PagamentoPix from "./Pages/PagamentoPix";
 
 function AppRoutes() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="layout">
         <Header />
         <main className="conteudo">
