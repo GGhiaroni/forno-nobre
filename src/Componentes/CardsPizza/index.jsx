@@ -136,7 +136,44 @@ const LinkEstilizado = styled(Link)`
   text-decoration: none;
 `;
 
-const CardsPizza = observer(({ categoriaAtiva }) => {
+const ListaSugestoes = styled.ul`
+  position: absolute;
+  top: 65px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  list-style: none;
+  padding: 10px;
+`;
+
+const ItemSugestao = styled(Link)`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  color: black;
+  text-decoration: none;
+  border-radius: 6px;
+
+  &:hover {
+    background-color: #f3f3f3;
+  }
+`;
+
+const ImagemSugestao = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+`;
+
+const CardsPizza = observer(({ categoriaAtiva, busca }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -165,58 +202,81 @@ const CardsPizza = observer(({ categoriaAtiva }) => {
       ? pizzas
       : pizzas.filter((p) => p.categorias.includes(categoriaAtiva));
 
+  const sugestoes = pizzas.filter((p) =>
+    p.sabor.toLowerCase().includes(busca.toLowerCase())
+  );
+
   if (loading) return <p>Carregando pizzas...</p>;
 
   return (
-    <ContainerCards>
-      {pizzasFiltradas.map((pizza, index) => (
-        <LinkEstilizado
-          to={`/pizza/${pizza.id}/${formatarTextoParaUrl(pizza.sabor)}`}
-        >
-          <Card key={index}>
-            <ImagemPizza src={pizza.fotoUm} />
-            <Content>
-              <ContainerCategorias>
-                {pizza.categorias.map((cat, index) => (
-                  <Categoria key={index}>{cat}</Categoria>
-                ))}
-              </ContainerCategorias>
-              <ContainerSaborAvaliacao>
-                <Sabor>{pizza.sabor}</Sabor>
-                <ContainerAvaliacao>
-                  <IconeEstrela />
-                  <Avaliacao>{pizza.avaliacao}</Avaliacao>
-                </ContainerAvaliacao>
-              </ContainerSaborAvaliacao>
-              <Descricao>{pizza.descricao}</Descricao>
-            </Content>
-            <Footer>
-              <Preco>
-                R$ {Number(pizza.preco).toFixed(2).replace(".", ",")}
-              </Preco>
-              <BotaoAdicionar
-                onClick={(e) => {
-                  e.preventDefault();
-                  carrinhoStore.adicionarAoCarrinho(pizza);
-                  toast.success(
-                    `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`,
-                    {
-                      duration: 1200,
-                    }
-                  );
-                  console.log(
-                    "Carrinho atualizado:",
-                    toJS(carrinhoStore.itensNoCarrinho)
-                  );
-                }}
+    <>
+      {busca && sugestoes.length > 0 && (
+        <ListaSugestoes>
+          {sugestoes.map((pizza) => (
+            <li key={pizza.id}>
+              <ItemSugestao
+                to={`/pizza/${pizza.id}/${formatarTextoParaUrl(pizza.sabor)}`}
               >
-                <FaPlus size={20} />
-              </BotaoAdicionar>
-            </Footer>
-          </Card>
-        </LinkEstilizado>
-      ))}
-    </ContainerCards>
+                <ImagemSugestao
+                  src={pizza.fotoUm}
+                  alt={`Pizza ${pizza.sabor}`}
+                />
+                <span>{pizza.sabor}</span>
+              </ItemSugestao>
+            </li>
+          ))}
+        </ListaSugestoes>
+      )}
+      <ContainerCards>
+        {pizzasFiltradas.map((pizza, index) => (
+          <LinkEstilizado
+            to={`/pizza/${pizza.id}/${formatarTextoParaUrl(pizza.sabor)}`}
+          >
+            <Card key={index}>
+              <ImagemPizza src={pizza.fotoUm} />
+              <Content>
+                <ContainerCategorias>
+                  {pizza.categorias.map((cat, index) => (
+                    <Categoria key={index}>{cat}</Categoria>
+                  ))}
+                </ContainerCategorias>
+                <ContainerSaborAvaliacao>
+                  <Sabor>{pizza.sabor}</Sabor>
+                  <ContainerAvaliacao>
+                    <IconeEstrela />
+                    <Avaliacao>{pizza.avaliacao}</Avaliacao>
+                  </ContainerAvaliacao>
+                </ContainerSaborAvaliacao>
+                <Descricao>{pizza.descricao}</Descricao>
+              </Content>
+              <Footer>
+                <Preco>
+                  R$ {Number(pizza.preco).toFixed(2).replace(".", ",")}
+                </Preco>
+                <BotaoAdicionar
+                  onClick={(e) => {
+                    e.preventDefault();
+                    carrinhoStore.adicionarAoCarrinho(pizza);
+                    toast.success(
+                      `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`,
+                      {
+                        duration: 1200,
+                      }
+                    );
+                    console.log(
+                      "Carrinho atualizado:",
+                      toJS(carrinhoStore.itensNoCarrinho)
+                    );
+                  }}
+                >
+                  <FaPlus size={20} />
+                </BotaoAdicionar>
+              </Footer>
+            </Card>
+          </LinkEstilizado>
+        ))}
+      </ContainerCards>
+    </>
   );
 });
 

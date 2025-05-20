@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster } from "sonner";
 import Footer from "./Componentes/Footer";
@@ -13,14 +14,16 @@ import PizzasPorCategoria from "./Pages/PizzasPorCategoria";
 import Sucesso from "./Pages/Sucesso";
 
 function AppRoutes() {
+  const [busca, setBusca] = useState("");
+
   return (
     <BrowserRouter>
       <ScrollToTop />
       <div className="layout">
-        <Header />
+        <Header valorBusca={busca} onBuscaChange={setBusca} />
         <main className="conteudo">
           <Routes>
-            <Route index element={<Home />} />
+            <Route index element={<Home busca={busca} />} />
             <Route path="/pizza/:id/:sabor" element={<Pizza />} />
             <Route
               path="/categorias/:categoria"

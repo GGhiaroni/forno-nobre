@@ -31,11 +31,16 @@ const InputEstilizado = styled.input`
   }
 `;
 
-const Input = () => {
+const Input = ({ valorBusca, onBuscaChange }) => {
   return (
     <Container>
       <IconeLupa />
-      <InputEstilizado type="text" placeholder="Buscar pizzas..." />
+      <InputEstilizado
+        type="text"
+        placeholder="Buscar pizzas..."
+        value={valorBusca}
+        onChange={(e) => onBuscaChange(e.target.value)}
+      />
     </Container>
   );
 };

@@ -29,13 +29,13 @@ const InputWrapper = styled.div`
   justify-content: center;
 `;
 
-const Header = () => {
+const Header = ({ valorBusca, onBuscaChange }) => {
   return (
     <HeaderEstilizado>
       <Container>
         <Logomarca modo="header" />
         <InputWrapper>
-          <Input />
+          <Input valorBusca={valorBusca} onBuscaChange={onBuscaChange} />
         </InputWrapper>
         <Carrinho />
       </Container>
