@@ -1,5 +1,7 @@
+import { observer } from "mobx-react-lite";
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
+import { useStoreContext } from "../../mobx/StoreContext";
 
 const Container = styled.div`
   display: flex;
@@ -31,18 +33,19 @@ const InputEstilizado = styled.input`
   }
 `;
 
-const Input = ({ valorBusca, onBuscaChange }) => {
+const Input = observer(() => {
+  const { buscaStore } = useStoreContext();
   return (
     <Container>
       <IconeLupa />
       <InputEstilizado
         type="text"
         placeholder="Buscar pizzas..."
-        value={valorBusca}
-        onChange={(e) => onBuscaChange(e.target.value)}
+        value={buscaStore.termo}
+        onChange={(e) => buscaStore.setTermo(e.target.value)}
       />
     </Container>
   );
-};
+});
 
 export default Input;

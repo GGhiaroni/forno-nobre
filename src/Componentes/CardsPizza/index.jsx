@@ -173,11 +173,11 @@ const ImagemSugestao = styled.img`
   border-radius: 8px;
 `;
 
-const CardsPizza = observer(({ categoriaAtiva, busca, setBusca }) => {
+const CardsPizza = observer(({ categoriaAtiva }) => {
   const [pizzas, setPizzas] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { carrinhoStore } = useStoreContext();
+  const { carrinhoStore, buscaStore } = useStoreContext();
 
   useEffect(() => {
     fetch("https://6801135281c7e9fbcc416de2.mockapi.io/fornonobre/pizzas")
@@ -203,20 +203,20 @@ const CardsPizza = observer(({ categoriaAtiva, busca, setBusca }) => {
       : pizzas.filter((p) => p.categorias.includes(categoriaAtiva));
 
   const sugestoes = pizzas.filter((p) =>
-    p.sabor.toLowerCase().includes(busca.toLowerCase())
+    p.sabor.toLowerCase().includes(buscaStore.termo.toLowerCase())
   );
 
   if (loading) return <p>Carregando pizzas...</p>;
 
   return (
     <>
-      {busca && sugestoes.length > 0 && (
+      {buscaStore.termo.length > 0 && sugestoes.length > 0 && (
         <ListaSugestoes>
           {sugestoes.map((pizza) => (
             <li key={pizza.id}>
               <ItemSugestao
                 to={`/pizza/${pizza.id}/${formatarTextoParaUrl(pizza.sabor)}`}
-                onClick={() => setBusca("")}
+                onClick={() => buscaStore.setTermo("")}
               >
                 <ImagemSugestao
                   src={pizza.fotoUm}
