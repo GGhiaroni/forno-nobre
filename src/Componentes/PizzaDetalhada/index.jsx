@@ -229,7 +229,7 @@ const PizzaDetalhada = observer(({ pizza }) => {
             <BtnAdicionar
               onClick={(e) => {
                 e.preventDefault();
-                carrinhoStore.adicionarAoCarrinho();
+                carrinhoStore.adicionarAoCarrinho(pizza);
                 toast.success(
                   `Pizza sabor ${pizza.sabor} adicionada com sucesso! 🍕`,
                   {
