@@ -152,11 +152,15 @@ const Sucesso = observer(() => {
   const [totalPedido, setTotalPedido] = useState(0);
 
   useEffect(() => {
-    setItensPedido(carrinhoStore.itensNoCarrinho);
+    setItensPedido([...carrinhoStore.itensNoCarrinho]);
     setTotalPedido(carrinhoStore.totalPrecoDoCarrinho);
   }, []);
 
-  if (itensPedido !== undefined) carrinhoStore.limparCarrinho;
+  useEffect(() => {
+    if (itensPedido.length > 0 || totalPedido > 0) {
+      carrinhoStore.limparCarrinho();
+    }
+  }, [itensPedido, totalPedido]);
 
   const numeroPedido = Math.floor(100000 + Math.random() * 900000);
   const dataAtual = new Date().toLocaleDateString();
