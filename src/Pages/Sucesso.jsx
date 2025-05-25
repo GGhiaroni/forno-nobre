@@ -1,7 +1,9 @@
 import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useStoreContext } from "../mobx/StoreContext";
 import logoBranca from "/public/logo-forno-nobre-branco.png";
 
 const ContainerPrincipal = styled.div`
@@ -105,7 +107,57 @@ const LinkEstilizado = styled(Link)`
   text-decoration: none;
 `;
 
+const ContainerItens = styled.div`
+  width: 100%;
+`;
+
+const ItemLinha = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--cor-cinza-claro);
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+`;
+
+const NomeItem = styled.p`
+  font-size: 1.1rem;
+  color: var(--cor-cinza-escuro);
+`;
+
+const QuantidadeItem = styled.p`
+  font-size: 1.1rem;
+  color: var(--cor-cinza-medio);
+`;
+
+const PrecoItem = styled.p`
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--cor-cinza-escuro);
+`;
+
+const TotalLinha = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0 0.5rem 0;
+  border-top: 2px solid var(--cor-cinza-claro-extra);
+`;
+
 const Sucesso = observer(() => {
+  const { carrinhoStore } = useStoreContext();
+
+  const [itensPedido, setItensPedido] = useState([]);
+  const [totalPedido, setTotalPedido] = useState(0);
+
+  useEffect(() => {
+    setItensPedido(carrinhoStore.itensNoCarrinho);
+    setTotalPedido(carrinhoStore.totalPrecoDoCarrinho);
+  }, []);
+
+  if (itensPedido !== undefined) carrinhoStore.limparCarrinho;
+
   const numeroPedido = Math.floor(100000 + Math.random() * 900000);
   const dataAtual = new Date().toLocaleDateString();
 
@@ -150,6 +202,26 @@ const Sucesso = observer(() => {
           <TextoDireito style={{ color: "#36C190" }}>Em preparo</TextoDireito>
         </ContainerInformacoes>
         <Linha />
+        <h3 style={{ margin: "0px" }}>Resumo do Pedido</h3>
+        <ContainerInformacoes>
+          <ContainerItens>
+            {itensPedido.map((item) => (
+              <ItemLinha key={item.id}>
+                <div>
+                  <NomeItem>{item.sabor}</NomeItem>
+                  <QuantidadeItem>Quantidade: {item.quantidade}</QuantidadeItem>
+                </div>
+                <PrecoItem>
+                  R$ {(item.preco * item.quantidade).toFixed(2)}
+                </PrecoItem>
+              </ItemLinha>
+            ))}
+            <TotalLinha>
+              <NomeItem>Total</NomeItem>
+              <PrecoItem>R$ {totalPedido.toFixed(2)}</PrecoItem>
+            </TotalLinha>
+          </ContainerItens>
+        </ContainerInformacoes>
       </Container>
       <LinkEstilizado to="/">
         <Btn>
