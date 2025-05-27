@@ -5,16 +5,16 @@ import logoBranca from "/public/logo-forno-nobre-branco.png";
 const HeroSectionEstilizado = styled.section`
   position: relative;
   width: 100%;
-  height: 60vh;
+  min-height: 40vh;
   background-image: url(${imagemHeroSection});
   background-size: cover;
   display: flex;
   align-items: center;
-  padding: 4rem;
+  padding: 1.5rem;
+  margin-top: 6rem;
   color: var(--cor-branca);
   box-sizing: border-box;
-  overflow-y: hidden;
-  overflow-x: hidden;
+  overflow: hidden;
 
   img {
     object-fit: cover;
@@ -30,40 +30,81 @@ const HeroSectionEstilizado = styled.section`
     background-color: rgba(0, 0, 0, 0.7);
     z-index: 1;
   }
+
+  @media (min-width: 480px) {
+    min-height: 50vh;
+    padding: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    min-height: 50vh;
+    padding: 3rem;
+  }
+
+  @media (min-width: 1024px) {
+    min-height: 60vh;
+    padding: 4rem;
+  }
 `;
 
 const HeroContent = styled.div`
   z-index: 2;
+  max-width: 600px;
 
   h1 {
-    font-size: var(--tamanho-fonte-xxxl);
+    font-size: var(--tamanho-fonte-l);
     font-weight: 700;
+
+    @media (min-width: 480px) {
+      font-size: 2.2rem;
+    }
+
+    @media (min-width: 768px) {
+      font-size: 3rem;
+    }
   }
 
   p {
-    font-size: var(--tamanho-fonte-l);
-    font-weight: 400;
+    font-size: var(--tamanho-fonte-s);
+    font-weight: 300;
     margin-top: 1rem;
     line-height: 1.6;
-    width: 50%;
+    width: 100%;
+
+    @media (min-width: 480px) {
+      font-size: 1.05rem;
+    }
+
+    @media (min-width: 768px) {
+      width: 60%;
+      font-size: 1.2rem;
+    }
+
+    @media (min-width: 1024px) {
+      width: 50%;
+    }
   }
 
   button {
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     background: var(--cor-primaria);
     color: var(--cor-branca);
     font-weight: 700;
-    padding: 1rem 2rem;
+    padding: 0.8rem 1.6rem;
     border: none;
     border-radius: 2rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
-    font-size: var(--tamanho-fonte-md);
+    font-size: 0.9rem;
     justify-content: center;
     font-family: "Poppins", sans-serif;
-    line-height: 24px;
+
+    @media (min-width: 480px) {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
   }
 `;
 

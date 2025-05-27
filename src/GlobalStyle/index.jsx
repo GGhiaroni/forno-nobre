@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
   --tamanho-fonte-l: 1.125rem; //18px
   --tamanho-fonte-md: 1rem; //16px
   --tamanho-fonte-s: .9rem; //14.5px
+    --tamanho-fonte-xs: .5rem; //14.5px
   
 
   --cor-branca: #FFFFFF;
