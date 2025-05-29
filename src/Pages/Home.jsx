@@ -2,12 +2,22 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import CardsPizza from "../Componentes/CardsPizza";
 import Categorias from "../Componentes/Categorias";
+import Header from "../Componentes/Header";
 import HeroSection from "../Componentes/HeroSection";
 
 const ContainerHome = styled.div`
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
+  padding: 0 1rem;
+
+  @media (min-width: 768px) {
+    padding: 0 2rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0 4rem;
+  }
 `;
 
 const SecaoCardapio = styled.section`
@@ -34,6 +44,7 @@ const Home = ({ busca, setBusca }) => {
 
   return (
     <>
+      <Header valorBusca={busca} onBuscaChange={setBusca} />
       <HeroSection scrollParaCardapio={scrollParaCardapio} />
       <ContainerHome>
         <Categorias

@@ -8,6 +8,7 @@ const HeroSectionEstilizado = styled.section`
   min-height: 40vh;
   background-image: url(${imagemHeroSection});
   background-size: cover;
+  background-position: center;
   display: flex;
   align-items: center;
   padding: 1.5rem;
@@ -49,7 +50,13 @@ const HeroSectionEstilizado = styled.section`
 
 const HeroContent = styled.div`
   z-index: 2;
-  max-width: 600px;
+  max-width: 90%;
+  margin: 0 auto;
+
+  @media (min-width: 768px) {
+    max-width: 70%;
+    margin: 0;
+  }
 
   h1 {
     font-size: var(--tamanho-fonte-l);

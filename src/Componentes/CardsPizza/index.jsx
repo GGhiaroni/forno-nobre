@@ -11,9 +11,26 @@ import { formatarTextoParaUrl } from "../../utils/formatarTextoParaUrl";
 
 const ContainerCards = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
-  gap: 2.5rem;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Ajustar minmax para telas muito pequenas */
+  gap: 2rem; /* Reduzir um pouco o gap */
   align-items: stretch;
+  padding-bottom: 2rem; /* Espaçamento extra no final */
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.2rem;
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(330px, 1fr)
+    ); /* Restaurar minmax original */
+    gap: 2.5rem; /* Restaurar o gap original */
+  }
 `;
 
 const Card = styled.div`
@@ -26,7 +43,7 @@ const Card = styled.div`
   justify-content: space-between;
   cursor: pointer;
   height: 100%;
-  width: 100%;
+  width: 100%; /* Garantir que o card ocupe a largura total da coluna do grid */
 
   &:hover {
     img {
@@ -44,7 +61,7 @@ const ImagemPizza = styled.img`
 
 const Content = styled.div`
   padding: 30px 16px 0px;
-  min-height: 120px;
+  min-height: 120px; /* Pode ser ajustado se o conteúdo variar muito */
   flex-grow: 1;
 `;
 
@@ -58,6 +75,7 @@ const Categoria = styled.p`
 const ContainerCategorias = styled.div`
   display: flex;
   gap: 8px;
+  flex-wrap: wrap; /* Permitir que as categorias quebrem linha se forem muitas */
 `;
 
 const Sabor = styled.h3`
@@ -111,6 +129,12 @@ const ContainerSaborAvaliacao = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* Adicionar flex-wrap para evitar quebra em telas muito pequenas se os textos forem longos */
+  @media (max-width: 400px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
 `;
 
 const ContainerAvaliacao = styled.div`

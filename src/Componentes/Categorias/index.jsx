@@ -3,10 +3,26 @@ import styled from "styled-components";
 const UlEstilizado = styled.ul`
   margin-top: 5rem;
   display: flex;
-  gap: 20px;
+  gap: 15px;
   list-style: none;
   margin-bottom: 2rem;
   padding: 0;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  @media (min-width: 768px) {
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+    gap: 20px;
+  }
 `;
 
 const LiEstilizado = styled.li`
@@ -20,11 +36,12 @@ const LiEstilizado = styled.li`
   background-color: ${(props) =>
     props.$ativo ? "var(--cor-primaria)" : "transparent"};
   font-weight: 600;
-  padding: 1rem 1.2rem;
+  padding: 0.8rem 1rem;
   border-radius: 1.8rem;
-  min-width: 50px;
+  min-width: 80px;
   text-align: center;
   transition: 0.3s ease;
+  flex-shrink: 0;
 
   &:hover {
     ${(props) =>
@@ -33,6 +50,11 @@ const LiEstilizado = styled.li`
       border-color: #f14236;
       background-color: var(--cor-background-input);
     `}
+  }
+
+  @media (min-width: 768px) {
+    padding: 1rem 1.2rem;
+    min-width: 50px;
   }
 `;
 
