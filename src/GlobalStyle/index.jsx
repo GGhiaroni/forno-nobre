@@ -21,7 +21,7 @@ const GlobalStyle = createGlobalStyle`
   --cor-primaria: #D22418;
   --cor-cinza-medio: #64748B;
   --cor-cinza-claro: #94A3B8;
-  --cor-cinza-claro-extra: #E2E8F0;
+  --cor-cinza-claro-extra: #8ea2bd;
   --cor-cinza-escuro: #1E293B;
   --cor-laranja: #F87415;
   --cor-amarelo-claro: #FAE08D;

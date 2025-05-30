@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const UlEstilizado = styled.ul`
-  margin-top: 5rem;
+  margin-top: 2rem;
   display: flex;
   gap: 15px;
   list-style: none;
