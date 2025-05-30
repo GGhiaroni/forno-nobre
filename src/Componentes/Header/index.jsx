@@ -40,9 +40,11 @@ const ContainerDesktop = styled.div`
 `;
 
 const ContainerMobile = styled.div`
+  padding: 1rem 0.5rem;
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: center;
+  gap: 2rem;
 
   @media (min-width: 768px) {
     display: none;
@@ -52,7 +54,7 @@ const ContainerMobile = styled.div`
 const IconeMenu = styled.button`
   background: none;
   border: none;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   color: var(--cor-cinza-escuro);
   cursor: pointer;
   display: flex;

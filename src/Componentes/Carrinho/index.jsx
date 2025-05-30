@@ -25,12 +25,17 @@ const Badge = styled.span`
   justify-content: center;
 `;
 
+const IconeCarrinho = styled(IoCartSharp)`
+  font-size: 2rem;
+  color: #333;
+`;
+
 const Carrinho = observer(() => {
   const { carrinhoStore } = useStoreContext();
   return (
     <CarrinhoContainer>
       <Link to="carrinho">
-        <IoCartSharp size={30} color="#333" />
+        <IconeCarrinho />
         {carrinhoStore.totalItensNoCarrinho > 0 && (
           <Badge>{carrinhoStore.totalItensNoCarrinho}</Badge>
         )}

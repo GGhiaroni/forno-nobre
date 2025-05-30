@@ -12,10 +12,15 @@ const ContainerLogomarca = styled(Link)`
 `;
 
 const H1Estilizado = styled.h1`
-  font-size: ${(props) =>
-    props.$modo === "header"
-      ? "var(--tamanho-fonte-xl)"
-      : "var(--tamanho-fonte-l)"};
+  font-size: var(--tamanho-fonte-l);
+
+  @media (min-width: 768px) {
+    font-size: ${(props) =>
+      props.$modo === "header"
+        ? "var(--tamanho-fonte-xl)"
+        : "var(--tamanho-fonte-l)"};
+  }
+
   color: ${(props) =>
     props.$modo === "header" ? "var(--cor-primaria)" : "var(--cor-branca)"};
 `;
