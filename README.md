@@ -1,7 +1,7 @@
 
 # 🍕 Forno Nobre
 
-Bem-vindo ao **Forno Nobre**, um projeto desenvolvido com muito carinho para simular uma pizzaria online, com foco na experiência do usuário, design moderno e tecnologias robustas do ecossistema React.
+Bem-vindo ao **Forno Nobre**, um projeto **_desktop_** desenvolvido com muito carinho para simular uma pizzaria online, com foco na experiência do usuário, design moderno e tecnologias robustas do ecossistema React.
 
 Este projeto foi desenvolvido com o objetivo de praticar, consolidar e demonstrar minha evolução como desenvolvedor front-end, explorando conceitos avançados de React, gerenciamento de estado, roteamento, estilização, animações e consumo de APIs.
 
@@ -34,7 +34,6 @@ O projeto faz consumo de dados através de uma API criada por mim, utilizando a 
 
 ## 🎨 Design e Experiência do Usuário
 
-- Layout responsivo: funciona perfeitamente em **mobile, tablet e desktop**.
 - Animações suaves com **Framer Motion**, proporcionando uma navegação agradável.
 - Interface limpa, moderna e intuitiva.
 - Feedback visual com **toasts elegantes** (Sonner) para interações como:
